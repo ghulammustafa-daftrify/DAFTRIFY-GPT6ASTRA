@@ -1,0 +1,41 @@
+name: DAFTRIFY Hero Upgrade
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  upgrade:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inject cinematic hero layer
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          if 'data-daftrify-hero="v2"' in s:
+              raise SystemExit(0)
+          css='''
+          .hero{position:relative;overflow:hidden}.hero-grid{position:relative;z-index:2}.hero::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;background:linear-gradient(90deg,rgba(8,10,16,.98),rgba(8,10,16,.78) 45%,rgba(8,10,16,.32));}
+          .hero-stage{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;opacity:.82;mask-image:linear-gradient(90deg,transparent 0,#000 35%,#000);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 35%,#000)}
+          .stage-grid{position:absolute;inset:-25%;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:64px 64px;transform:perspective(900px) rotateX(62deg) translateY(18%);opacity:.35;animation:gridmove 18s linear infinite}
+          .stage-paper{position:absolute;width:clamp(210px,22vw,330px);aspect-ratio:3/4;background:linear-gradient(135deg,#f2f0e9,#d7d3c9);box-shadow:0 40px 90px #0008;border:1px solid #fff3;opacity:.15;overflow:hidden}.stage-paper:before{content:"";position:absolute;inset:9% 12%;background:repeating-linear-gradient(to bottom,transparent 0 18px,#292e3322 19px 20px);}.stage-paper:after{content:"DOCUMENT / 0048";position:absolute;left:12%;top:8%;font:8px var(--mono);color:#292e3380;letter-spacing:.1em}.sp1{right:1%;top:9%;transform:rotate(8deg);animation:paper1 11s ease-in-out infinite}.sp2{right:18%;top:27%;transform:rotate(-7deg);opacity:.1;animation:paper2 13s ease-in-out infinite}.sp3{right:-1%;top:51%;transform:rotate(4deg);opacity:.08;animation:paper3 15s ease-in-out infinite}
+          .ops-panel{position:absolute;right:6%;top:17%;width:min(390px,38vw);font:9px var(--mono);letter-spacing:.06em;color:#b9b8b2}.ops-head{display:flex;justify-content:space-between;border-bottom:1px solid #fff2;padding-bottom:10px;margin-bottom:8px}.ops-head b{font-weight:400;color:#b8d5c5}.ops-row{display:grid;grid-template-columns:25px 1fr auto;gap:10px;padding:12px 10px;margin:6px 0;border:1px solid #fff1;background:#10131b99;backdrop-filter:blur(8px);animation:pulse 8s ease-in-out infinite}.ops-row:nth-child(3){animation-delay:2s}.ops-row:nth-child(4){animation-delay:4s}.ops-row:nth-child(5){animation-delay:6s}.ops-row i{font-style:normal;color:#6f706f}.ops-row strong{font-weight:500;color:#e6e4dd}.ops-row em{font-style:normal;color:#b8d5c5}.ops-row.flag em{color:#d9aaa0}.scan{position:absolute;left:25%;right:0;top:-5%;height:1px;background:linear-gradient(90deg,transparent,#f2f0e966,transparent);box-shadow:0 0 25px #f2f0e933;animation:scan 7s ease-in-out infinite}.exception-mark{position:absolute;right:26%;top:53%;border:1px solid #d9aaa055;background:#291e1d77;color:#d9aaa0;padding:10px 13px;font:8px var(--mono);letter-spacing:.12em;animation:flag 6s ease-in-out infinite}.resolution{position:absolute;right:8%;bottom:10%;font:8px var(--mono);letter-spacing:.12em;color:#b8d5c5;opacity:.7}.cursor{position:absolute;width:15px;height:15px;border-left:1px solid #f2f0e9;border-top:1px solid #f2f0e9;transform:rotate(135deg);animation:cursor 9s ease-in-out infinite}
+          @keyframes gridmove{to{transform:perspective(900px) rotateX(62deg) translateY(25%) translateX(-35px)}}@keyframes paper1{50%{transform:rotate(5deg) translate(-18px,14px)}}@keyframes paper2{50%{transform:rotate(-10deg) translate(16px,-18px)}}@keyframes paper3{50%{transform:rotate(7deg) translate(-12px,-10px)}}@keyframes pulse{0%,72%,100%{border-color:#fff1;transform:translateX(0)}78%{border-color:#b8d5c555;transform:translateX(-4px)}}@keyframes scan{0%,15%{transform:translateY(-5vh);opacity:0}30%{opacity:1}65%{opacity:.5}85%,100%{transform:translateY(105vh);opacity:0}}@keyframes flag{0%,45%,100%{opacity:.15;transform:scale(.96)}55%,72%{opacity:.9;transform:scale(1)}}@keyframes cursor{0%,100%{left:77%;top:31%}25%{left:88%;top:43%}50%{left:70%;top:62%}75%{left:90%;top:76%}}
+          @media(max-width:900px){.hero-stage{mask-image:linear-gradient(180deg,transparent,#000 40%);-webkit-mask-image:linear-gradient(180deg,transparent,#000 40%);opacity:.5}.ops-panel{right:3%;top:50%;width:56vw}.stage-paper{width:180px}.exception-mark{right:20%;top:67%}}
+          @media(max-width:600px){.hero-stage{opacity:.25}.ops-panel{right:2%;top:56%;width:76vw}.stage-paper{width:145px}.sp3{display:none}.exception-mark{right:12%;top:72%;transform:scale(.8)}.stage-grid{background-size:48px 48px}}
+          @media(prefers-reduced-motion:reduce){.stage-grid,.stage-paper,.ops-row,.scan,.exception-mark,.cursor{animation:none}}
+          '''
+          s=s.replace('</style>',css+'</style>',1)
+          stage='''<div class="hero-stage" data-daftrify-hero="v2" aria-hidden="true"><div class="stage-grid"></div><div class="scan"></div><div class="stage-paper sp1"></div><div class="stage-paper sp2"></div><div class="stage-paper sp3"></div><div class="ops-panel"><div class="ops-head"><span>DOCUMENT OPS / LIVE</span><b>● VERIFIED</b></div><div class="ops-row"><i>01</i><strong>Identity packet</strong><em>READY</em></div><div class="ops-row flag"><i>02</i><strong>Financial record set</strong><em>EXCEPTION</em></div><div class="ops-row"><i>03</i><strong>Supporting evidence</strong><em>NORMALIZED</em></div><div class="ops-row"><i>04</i><strong>Working package</strong><em>PACKAGED</em></div></div><div class="cursor"></div><div class="exception-mark">CONFLICT FOUND</div><div class="resolution">SOURCE → REVIEW → VERIFIED</div></div>'''
+          s=s.replace('<section class="hero">','<section class="hero">'+stage,1)
+          p.write_text(s)
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git rm .github/workflows/upgrade-hero.yml
+          git commit -m "Add cinematic document operations hero"
+          git push
