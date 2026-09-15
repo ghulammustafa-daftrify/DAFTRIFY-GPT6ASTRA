@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#080a10">
+  <meta name="description" content="DAFTRIFY is an outsourced document operations desk. We extract, organize, reconcile and human-verify document-heavy working sets before packaging them for review.">
+  <title>DAFTRIFY | A clearer way through your documents</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none'%3E%3Crect x='2' y='2' width='28' height='28' rx='9' fill='%23080a10' stroke='white' stroke-width='1.5'/%3E%3Cpath d='M10 8h8l4 4v12H10V8Z' stroke='white' stroke-width='1.5'/%3E%3Cpath d='M18 8v5h4M13 17h6M13 20h4' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://pub-1e5b4001b36b47e28e6a2fb775966a79.r2.dev">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>html,body{margin:0;background:#000;color:#fff}</style>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    /* One continuous environment. Motion owns scroll transforms on outer
+       wrappers; idle movement lives on inner wrappers so they never compete. */
+    :root{
+      --ink:#ffffff;--muted:rgba(255,255,255,.72);--soft:rgba(255,255,255,.48);
+      --night:#080a10;--surface:rgba(16,19,27,.62);--surface-solid:#151922;
+      --line:rgba(255,255,255,.16);--line-bright:rgba(255,255,255,.3);
+      --paper:#f1f0e9;--paper-ink:#282e33;--paper-muted:#62696e;
+      --pass:#b4d3c3;--flag:#e1b2a6;--serif:'Playfair Display',Georgia,serif;
+      --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+      --mono:ui-monospace,SFMono-Regular,Consolas,monospace;
+      --gutter:6vw;--content:1240px;--ease:cubic-bezier(.22,.61,.36,1);
+    }
+    *,*::before,*::after{box-sizing:border-box}
+    body{font-family:var(--sans);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+    html,body{overflow-x:clip}html{scroll-behavior:smooth;scroll-padding-top:100px}
+    h1,h2,h3,h4,p,figure,dl,dd{margin:0}ul,ol{list-style:none;padding:0;margin:0}
+    a{color:inherit;text-decoration:none}button,input,textarea{font:inherit;color:inherit}
+    button{border:0;background:none;cursor:pointer}button,a{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+    svg{display:block;flex-shrink:0}button:disabled{opacity:.45;cursor:wait}
+    [hidden]{display:none!important}::selection{background:#d8e0e6;color:#12151a}
+    :where(a,button,input,textarea,summary):focus-visible{outline:2px solid #fff;outline-offset:5px}
+    input:focus-visible,textarea:focus-visible{outline-offset:2px}
+    .sr-only{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+    .skip{position:fixed;top:12px;left:12px;z-index:200;padding:12px 16px;background:#fff;color:#111;transform:translateY(-180%)}.skip:focus{transform:none}
+    .icon{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+    .symbol-library{position:absolute;width:0;height:0;overflow:hidden}
+    .container{width:min(var(--content),calc(100% - var(--gutter)*2));margin-inline:auto}
+    .mono{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase}
+    .eyebrow{display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:22px}
+    h1,h2{font-family:var(--serif);font-weight:500;letter-spacing:-.035em;text-wrap:balance}
+    h2{font-size:clamp(36px,5.2vw,70px);line-height:1.12}h2 em{font-weight:400}
+    .body-copy{font-size:16px;line-height:1.8;color:var(--muted);max-width:49ch}
+    .section-copy{margin-top:24px}.scene{position:relative;padding:clamp(96px,12vw,168px) 0}
+    .scene-title{max-width:730px}.scene-title .body-copy{margin-top:22px}
+    .section-rule{height:1px;background:var(--line);margin:0 var(--gutter)}
+    .motion-wrap{min-width:0;perspective:1100px}.motion-subject{transform-origin:50% 50%}
+
+    /* The exact Orchid clip is shared by the entire site, not repeated in
+       dozens of video elements. No stock replacement and no color filter. */
+    .ambient{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:#080a10}
+    .ambient-frame{position:absolute;inset:-1px;transform-origin:center}
+    .ambient video{width:100%;height:100%;object-fit:cover;display:block}
+    .ambient-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.25),rgba(0,0,0,.12) 55%,rgba(0,0,0,.05))}
+    .ambient-shade::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.10),transparent 30%,transparent 65%,rgba(0,0,0,.21))}
+    .reading-veil{position:absolute;inset:0;background:#04070d;opacity:.2}
+    .media-failed .ambient-frame{display:none}
+    .ambient-light{position:absolute;top:-10%;left:5%;width:700px;height:700px;background:radial-gradient(ellipse at 30% 30%,rgba(14,116,144,.05),transparent 65%)}
+    #root{position:relative;z-index:1;width:100%;min-height:100svh}
+
+    /* Orchid navigation DNA: white, fixed, dot-separated, quiet utilities. */
+    .site-header{position:fixed;left:0;right:0;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:22px 40px;gap:20px;border-bottom:1px solid transparent;transition:background .25s,border-color .25s}
+    .site-header.scrolled{background:rgba(8,10,16,.86);border-bottom-color:var(--line)}
+    .brand{display:inline-flex;align-items:center;gap:10px;min-height:32px;font-size:21px;font-weight:600;letter-spacing:-.01em}
+    .brand-mark{width:32px;height:32px}
+    .desktop-nav{position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:18px}
+    .desktop-nav a{position:relative;font-size:14px;font-weight:500;color:rgba(255,255,255,.78);padding:10px 0;white-space:nowrap}
+    .desktop-nav a::after{content:'';position:absolute;left:0;right:0;bottom:3px;height:1px;background:#fff;transform:scaleX(0);transform-origin:left;transition:transform .2s}
+    .desktop-nav a:hover,.desktop-nav a[aria-current]{color:#fff}
+    .desktop-nav a:hover::after,.desktop-nav a[aria-current]::after{transform:scaleX(1)}
+    .nav-dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.4)}
+    .nav-tools{display:flex;align-items:center;gap:14px}.language{font-size:14px;color:rgba(255,255,255,.82);padding-right:2px}
+    .icon-button{display:grid;place-items:center;width:44px;height:44px;color:rgba(255,255,255,.9);border-radius:50%;transition:background .2s}
+    .icon-button:hover{background:rgba(255,255,255,.1)}
+    .orchid-button{display:inline-flex;align-items:center;gap:12px;padding:7px 22px 7px 7px;border-radius:14px;background:#1c1c22;border:1px solid rgba(255,255,255,.16);box-shadow:0 10px 30px rgba(0,0,0,.4);white-space:nowrap;min-height:50px}
+    .orchid-button .button-tile{width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.14);display:grid;place-items:center;flex:none}
+    .orchid-button .button-tile .icon{width:15px;height:15px;stroke-width:1.8}
+    .orchid-button .button-text{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+    .text-link{display:inline-flex;align-items:center;gap:10px;min-height:44px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line-bright)}.text-link:hover{color:#fff}
+    .motion-toggle{position:fixed;bottom:20px;right:24px;z-index:65;display:flex;align-items:center;gap:8px;padding:9px 12px;min-height:40px;background:rgba(12,15,22,.78);border:1px solid var(--line);border-radius:9px;font-size:10px;letter-spacing:.05em;color:#fff}
+    .motion-toggle .icon{width:13px;height:13px}.motion-toggle:disabled{cursor:default;opacity:.7}
+
+    /* Hero: the composition from the reference, with DAFTRIFY as the signal. */
+    .hero{position:relative;width:100%;height:100svh;min-height:680px;overflow:hidden}
+    .hero-content{position:absolute;left:6vw;top:17svh;z-index:2;max-width:680px}
+    .hero-badge{display:flex;align-items:center;gap:10px;margin-bottom:17px;font-size:13px;font-weight:500;text-shadow:0 1px 12px rgba(0,0,0,.5)}
+    .badge-records{display:flex;padding:3px;border-radius:999px;background:rgba(255,255,255,.14)}
+    .badge-records svg{width:22px;height:22px;padding:4px;background:#8b929e;border:2px solid #242631;border-radius:50%;margin-left:-7px}.badge-records svg:first-child{margin-left:0;background:#525d6d}.badge-records svg:last-child{background:#b7b6af}
+    .hero h1{font-size:clamp(2.2rem,5.1vw,4.25rem);line-height:1.08;letter-spacing:-.01em;text-shadow:0 2px 30px rgba(0,0,0,.5)}
+    .hero h1 .hero-brand{font-size:1.18em;display:block;margin-bottom:4px}
+    .hero h1 .hero-line{display:block}.hero h1 em{font-weight:500}
+    .hero-description{margin:17px 0 0;max-width:375px;font-size:13px;line-height:1.6;font-weight:500;color:rgba(255,255,255,.72);text-shadow:0 1px 14px rgba(0,0,0,.5)}
+    .hero-cta{margin-top:27px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+    .hero-cta .text-link{font-size:12px;border:0}
+    .hero-route{position:absolute;left:6vw;bottom:16svh;z-index:3;display:flex;gap:12px}
+    .hero-step{display:block;width:78px;min-width:0;text-align:left}
+    .hero-step-face{height:72px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:12px;display:flex;flex-direction:column;justify-content:space-between}
+    .hero-step-face svg{width:17px;height:17px;stroke-width:1.6}.hero-step-face span{font-size:11px;font-weight:600;white-space:nowrap}
+    .hero-step-number{display:block;margin-top:9px;font-size:10.5px;font-weight:600;color:rgba(255,255,255,.7)}
+    .hero-step-number::after{content:'';display:block;margin-top:5px;width:19px;height:2px;border-radius:2px;background:rgba(255,255,255,.4);transition:width .25s}
+    .hero-step:hover .hero-step-number::after{width:100%}
+
+    /* Open document fragments, not a feature-card grid. */
+    .condition{min-height:95svh;display:flex;align-items:center}
+    .fragments{display:grid;grid-template-columns:1.1fr .95fr 1fr;gap:clamp(24px,4vw,70px);align-items:start;margin-top:76px}
+    .fragment{position:relative;min-width:0}.fragment:nth-child(2){margin-top:84px}.fragment:nth-child(3){margin-top:30px}
+    .fragment-paper{position:relative;background:rgba(21,25,34,.82);border-top:1px solid rgba(255,255,255,.55);border-bottom:1px solid var(--line);padding:26px 24px 30px;box-shadow:0 24px 45px -28px #000;transform:rotate(var(--angle,0deg))}
+    .fragment-title{display:flex;justify-content:space-between;gap:10px;font-size:11px;color:var(--soft);margin-bottom:34px}
+    .fragment-value{font-family:var(--serif);font-size:clamp(23px,2.6vw,35px);line-height:1.3;letter-spacing:-.03em}
+    .fragment-value s{text-decoration-thickness:1px;color:var(--soft);text-decoration-color:var(--flag)}
+    .fragment-value strong{font-weight:400;color:#fff}.fragment .review-required{font-size:10px;letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;gap:9px;color:var(--flag);margin-top:30px}
+    .review-required::before{content:'';width:19px;height:1px;background:currentColor}
+    .fragment-caption{margin-top:20px;font-size:13px;line-height:1.7;color:var(--muted)}
+    .sim-label{font-family:var(--mono);font-size:10px;letter-spacing:.1em;line-height:1.6;color:var(--muted);text-transform:uppercase}
+    .condition .sim-label{margin-top:36px;display:block}
+
+    /* A scrollable stage around one physical dossier. */
+    .dossier-section{position:relative}
+    .dossier-scroll{position:relative}
+    .dossier-viewport{position:relative;min-height:850px;padding:100px 0}
+    .dossier-intro{width:min(380px,30vw);position:relative;margin-left:6vw;z-index:3}
+    .dossier-intro h2{font-size:clamp(36px,4vw,58px)}
+    .dossier-intro .body-copy{margin-top:24px;font-size:14px;max-width:28ch}
+    .dossier-stage{display:none}
+    .dossier-controls{display:none}
+    .motion-ready .dossier-scroll{height:400svh}
+    .motion-ready .dossier-viewport{position:sticky;top:0;height:100svh;min-height:610px;padding:0;overflow:hidden}
+    .motion-ready .dossier-intro{position:absolute;top:18%;left:6vw;margin:0}
+    .motion-ready .dossier-stage{position:absolute;display:block;left:35%;right:3%;top:11%;bottom:17%;perspective:1700px;isolation:isolate}
+    .dossier-pointer,.dossier-idle,.dossier-planes{position:absolute;inset:0;transform-style:preserve-3d}
+    .paper-position{position:absolute;left:50%;top:50%;width:clamp(148px,16vw,218px);height:clamp(212px,22vw,302px);margin-left:calc(clamp(148px,16vw,218px)/-2);margin-top:calc(clamp(212px,22vw,302px)/-2);transform-style:preserve-3d;opacity:0}
+    .paper-float{position:absolute;inset:0;transform-style:preserve-3d}
+    .dossier-paper{position:absolute;inset:0;background:var(--paper);color:var(--paper-ink);border:1px solid rgba(0,0,0,.18);border-radius:3px;box-shadow:0 18px 44px -20px rgba(0,0,0,.9);padding:18px 15px;backface-visibility:hidden}
+    .paper-header{display:flex;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:9px;letter-spacing:.04em;border-bottom:1px solid #b5b8b5;padding-bottom:9px}
+    .paper-header b{font-weight:500}.paper-body{margin-top:21px;display:grid;gap:10px;font-size:11px;line-height:1.4}
+    .paper-body small{font-size:8px;color:var(--paper-muted);letter-spacing:.07em;display:block;margin-bottom:4px}
+    .paper-body strong{font-family:var(--mono);font-size:11px;font-weight:500}
+    .paper-foot{position:absolute;left:15px;right:15px;bottom:13px;padding-top:8px;border-top:1px solid #c6c9c4;font-family:var(--mono);font-size:7px;letter-spacing:.1em;color:var(--paper-muted)}
+    .paper-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:8px}.paper-table td{padding:6px 0;border-bottom:1px solid #d2d3ce}.paper-table td:last-child{text-align:right}
+    .mini-exception{border-bottom:1px solid #994a44;color:#8a3934;display:inline-block}
+    .folder-back,.folder-cover{position:absolute;left:50%;top:50%;width:clamp(218px,22vw,300px);height:clamp(288px,29vw,400px);margin-left:calc(clamp(218px,22vw,300px)/-2);margin-top:calc(clamp(288px,29vw,400px)/-2);border:1px solid rgba(255,255,255,.2);border-radius:4px 12px 8px 4px;transform-style:preserve-3d}
+    .folder-back{background:#4b5157;box-shadow:0 32px 80px -30px #000}
+    .folder-cover{background:linear-gradient(120deg,#4d5359,#2f363d 80%);transform-origin:left center;backface-visibility:hidden;box-shadow:inset 3px 0 5px rgba(0,0,0,.2);padding:26px;color:#fff}
+    .folder-cover::before{content:'';position:absolute;top:-13px;left:-1px;width:43%;height:14px;background:#4d5359;border:1px solid rgba(255,255,255,.2);border-bottom:0;border-radius:5px 6px 0 0}
+    .folder-brand{font-size:13px;font-weight:600;letter-spacing:.02em}.folder-title{font-family:var(--serif);font-size:30px;line-height:1.2;margin-top:52px;letter-spacing:-.02em}
+    .folder-metadata{position:absolute;left:26px;right:26px;bottom:24px;display:grid;gap:10px}
+    .folder-metadata div{display:flex;justify-content:space-between;border-top:1px solid rgba(255,255,255,.16);padding-top:8px;font-size:9px;font-family:var(--mono);letter-spacing:.06em}
+    .annotation{position:absolute;z-index:15;opacity:0;max-width:260px;border-left:2px solid var(--flag);padding:12px 16px;background:rgba(12,17,24,.95);box-shadow:0 12px 30px -15px #000;font-size:12px;line-height:1.7}
+    .annotation .mono{color:var(--flag);font-size:9px;display:block;margin-bottom:4px}.annotation b{font-weight:500}.annotation s{color:var(--soft)}
+    #annotation-name{left:1%;top:8%}#annotation-date{right:1%;top:32%}#annotation-amount{left:14%;bottom:5%}
+    .connections{position:absolute;inset:0;width:100%;height:100%;z-index:10;opacity:0;pointer-events:none}.connections path{fill:none;stroke:rgba(255,255,255,.65);stroke-width:1;stroke-linecap:round}.connections circle{fill:#fff}
+    .reconcile-key{position:absolute;left:50%;bottom:-2%;transform:translateX(-50%);display:flex;gap:18px;opacity:0;font-size:9px;letter-spacing:.06em;font-family:var(--mono);text-transform:uppercase;white-space:nowrap}
+    .verification-slip{position:absolute;left:50%;top:50%;width:min(440px,90%);transform:translate(-50%,-50%);background:var(--paper);color:var(--paper-ink);padding:26px;border-radius:4px;opacity:0;z-index:20;box-shadow:0 40px 65px -30px #000}
+    .verification-slip .mono{font-size:9px;letter-spacing:.07em}.verification-slip .slip-heading{display:flex;justify-content:space-between;gap:10px;margin-bottom:26px;padding-bottom:12px;border-bottom:1px solid #b4bab3}
+    .slip-value{padding:12px 0;border-bottom:1px solid #d3d6d0}.slip-value small{font-family:var(--mono);font-size:9px;text-transform:uppercase;color:var(--paper-muted);display:block;margin-bottom:4px}.slip-value strong{font-size:clamp(14px,1.6vw,19px);font-weight:500}
+    .slip-verdict{font-family:var(--mono);font-size:9px;letter-spacing:.07em;text-transform:uppercase;padding-top:22px;display:flex;align-items:center;gap:8px}
+    .package-stamp{position:absolute;left:50%;top:50%;margin-left:-89px;margin-top:-89px;width:178px;height:178px;border:2px solid #c4ded2;border-radius:50%;color:#c4ded2;display:grid;place-items:center;z-index:25;background:rgba(25,43,40,.78);opacity:0;text-align:center;transform:rotate(-12deg)}
+    .package-stamp::before{content:'';position:absolute;inset:8px;border:1px dashed rgba(196,222,210,.6);border-radius:50%}.package-stamp .icon{margin:0 auto 9px;width:22px;height:22px}.package-stamp b{font-size:12px;letter-spacing:.14em;font-weight:500}.package-stamp small{display:block;font-size:9px;margin-top:6px;font-family:var(--mono);letter-spacing:.05em}
+    .motion-ready .dossier-controls{position:absolute;display:block;left:6vw;right:6vw;bottom:30px;z-index:30}
+    .phase-navigation{display:flex;align-items:center;gap:8px;border-top:1px solid var(--line);padding-top:12px}
+    .phase-button{min-height:44px;display:flex;align-items:center;gap:10px;padding:6px 14px 6px 0;margin-right:12px;color:var(--soft);font-size:11px;white-space:nowrap}.phase-button b{font-family:var(--mono);font-size:10px;font-weight:400}.phase-button[aria-current]{color:#fff}
+    .stage-caption{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:15px}
+    .stage-caption p{font-size:12px;color:var(--muted);line-height:1.7;max-width:60ch}.stage-caption .sim-label{font-size:9px;white-space:nowrap}
+    .dossier-static{width:min(1100px,88vw);margin:54px auto 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.dossier-static li{border-top:1px solid var(--line);padding-top:18px}.dossier-static h3{font-size:17px;font-weight:500;margin-bottom:8px}.dossier-static p{font-size:14px;line-height:1.7;color:var(--muted)}
+    .motion-ready .dossier-static{position:absolute;width:1px;height:1px;margin:0;overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%);white-space:nowrap}
+
+    /* Capabilities: a working index, each opened entry has its own artifact. */
+    .capabilities-layout{display:grid;grid-template-columns:.88fr 1.12fr;gap:clamp(40px,8vw,140px);align-items:start}
+    .capabilities-copy{position:sticky;top:145px}.capabilities-copy .body-copy{margin-top:24px}
+    .capability{border-bottom:1px solid var(--line)}.capability:first-child{border-top:1px solid var(--line)}
+    .capability summary{display:flex;align-items:center;gap:18px;list-style:none;min-height:98px;cursor:pointer}
+    .capability summary::-webkit-details-marker{display:none}.capability summary .cap-number{font-size:10px;color:var(--soft);font-family:var(--mono);width:24px}.capability summary h3{font-size:clamp(20px,2.2vw,28px);font-weight:400;letter-spacing:-.025em}.capability summary .icon{margin-left:auto;width:18px;height:18px}
+    .capability[open] summary .icon{transform:rotate(45deg)}
+    .capability-content{padding:0 0 26px 42px;display:grid;gap:22px}.capability-content>p{font-size:15px;line-height:1.75;color:var(--muted)}
+    .cap-artifact{font-family:var(--mono);font-size:11px;border-left:1px solid var(--line-bright);padding:3px 0 3px 18px;color:var(--muted);line-height:2}.cap-artifact strong{color:#fff;font-weight:400}
+
+    /* Proof uses a real, operable comparison surface; never fake client work. */
+    .work-header{margin-bottom:42px}.work-tabs{display:flex;flex-wrap:wrap;gap:4px;margin:34px 0 0}
+    .work-tab{min-height:46px;padding:10px 18px;font-size:13px;color:var(--muted);border-bottom:1px solid transparent}.work-tab[aria-selected="true"]{color:#fff;border-bottom-color:#fff;background:rgba(255,255,255,.05)}
+    .proof-surface{position:relative;border:1px solid var(--line);background:rgba(13,18,27,.82);border-radius:16px;overflow:hidden}
+    .proof-masthead{padding:20px 26px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:14px;align-items:center;font-size:12px}
+    .proof-masthead .sim-label{font-size:9px}.proof-title{font-weight:500}
+    .proof-pane{padding:32px}.comparison{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+    .comparison-column>p{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);padding-bottom:16px;border-bottom:1px solid var(--line)}
+    .compare-row{padding:19px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+    .compare-row small{display:block;color:var(--soft);font-family:var(--mono);font-size:10px;margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em}
+    .compare-row strong{font-family:var(--mono);font-size:16px;font-weight:400;line-height:1.5;overflow-wrap:anywhere}
+    .compare-row mark{background:rgba(225,178,166,.09);color:var(--flag);padding:2px 5px;border-bottom:1px solid rgba(225,178,166,.45)}
+    .compare-row[data-verified="true"] mark{background:rgba(180,211,195,.08);color:var(--pass);border-bottom-color:rgba(180,211,195,.45)}
+    .proof-actions{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-top:28px;flex-wrap:wrap}
+    .proof-status{display:flex;align-items:center;gap:9px;font-size:12px;line-height:1.5;color:var(--flag)}.proof-status .icon{width:16px;height:16px}
+    .proof-status[data-state="good"]{color:var(--pass)}
+    .table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:4px;max-width:100%}
+    .data-table{width:100%;min-width:510px;border-collapse:collapse;font-family:var(--mono);font-size:12px;text-align:left}
+    .data-table th{font-size:10px;color:var(--soft);text-transform:uppercase;letter-spacing:.07em;font-weight:400;padding:16px;background:rgba(255,255,255,.03)}
+    .data-table td{padding:18px 16px;border-top:1px solid var(--line);white-space:nowrap}.data-table .pending{color:var(--flag)}.data-table .checked{color:var(--pass)}
+    .proof-explainer{font-size:14px;line-height:1.7;color:var(--muted);max-width:60ch;margin-bottom:24px}
+    .checklist{display:grid;grid-template-columns:1fr 1fr;gap:0 48px}
+    .checklist li{display:flex;justify-content:space-between;gap:12px;align-items:center;min-height:62px;border-bottom:1px solid var(--line);font-size:13px}
+    .checklist .list-status{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px}.list-status .icon{width:14px;height:14px}.list-status.missing{color:var(--flag)}
+
+    /* Wide, unboxed type creates a rest from the forensic detail. */
+    .principles-head{text-align:center;max-width:840px;margin:0 auto 76px}.principles-head h2{font-size:clamp(48px,7.8vw,110px);line-height:1.12}
+    .principle-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:42px 62px}
+    .principle h3{font-size:16px;font-weight:500;margin-bottom:13px}.principle p{font-size:14px;line-height:1.8;color:var(--muted)}
+    .principle-line{height:1px;background:var(--line);margin-bottom:23px;position:relative;overflow:hidden}
+    .principle-line i{display:block;width:34%;height:1px;background:rgba(255,255,255,.75)}
+    .where-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+    .where-index{display:grid;grid-template-columns:1fr 1fr;gap:0 30px;font-size:14px;color:var(--muted)}
+    .where-index li{padding:13px 0;line-height:1.5}
+    .scope-note{margin-top:48px;font-size:12px;color:var(--muted);line-height:1.8;max-width:84ch}
+    .pricing-layout{display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:start}
+    .scope-list{display:grid;gap:28px}
+    .scope-list li{display:grid;grid-template-columns:40px 1fr;gap:18px}.scope-list .mono{color:var(--soft);padding-top:3px}.scope-list h3{font-size:17px;font-weight:500;margin-bottom:8px}.scope-list p{font-size:14px;color:var(--muted);line-height:1.75}
+    .pricing-layout .orchid-button{margin-top:32px}
+    .about-layout{display:grid;grid-template-columns:.9fr 1.1fr;gap:80px}
+    .founder-signoff{margin-top:32px;border-top:1px solid var(--line);padding-top:20px}.founder-signoff strong{display:block;font-size:14px;font-weight:500}.founder-signoff span{font-size:12px;color:var(--muted);display:block;margin-top:6px}
+    .faq{border-bottom:1px solid var(--line)}.faq:first-child{border-top:1px solid var(--line)}
+    .faq summary{display:flex;align-items:center;justify-content:space-between;gap:20px;list-style:none;cursor:pointer;min-height:72px;font-size:14px;padding:16px 0;line-height:1.5}
+    .faq summary::-webkit-details-marker{display:none}.faq summary .icon{width:16px;height:16px}.faq[open] summary .icon{transform:rotate(45deg)}.faq p{font-size:14px;line-height:1.85;color:var(--muted);padding:0 32px 24px 0}
+
+    /* Contact is an actual local draft, not a pretend submission endpoint. */
+    .contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,100px);align-items:start}
+    .contact-layout h2{font-size:clamp(44px,6vw,82px)}
+    .contact-email{font-size:clamp(15px,1.5vw,19px);display:inline-block;overflow-wrap:anywhere;margin-top:30px;border-bottom:1px solid var(--line-bright);padding-bottom:8px}
+    .inquiry-form{border-top:1px solid var(--line);padding-top:28px}
+    .form-pair{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .field{margin-bottom:24px;min-width:0}.field label{display:block;font-size:12px;font-weight:500;margin-bottom:11px}
+    .field input,.field textarea{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:6px;min-height:48px;padding:12px;font-size:14px;outline-offset:3px;resize:vertical}
+    .field textarea{min-height:125px;line-height:1.65}.field input::placeholder,.field textarea::placeholder{color:rgba(255,255,255,.45)}
+    .field input[aria-invalid="true"],.field textarea[aria-invalid="true"]{border-color:var(--flag)}
+    .field-error{font-size:12px;color:var(--flag);margin-top:8px}.form-note{font-size:12px;color:var(--muted);line-height:1.65;margin:0 0 24px}
+    .draft{padding:25px 0;border-top:1px solid var(--line)}.draft h3{font-size:20px;font-weight:500;margin-bottom:14px}.draft p{font-size:14px;line-height:1.7;color:var(--muted)}
+    .draft-preview{font-family:var(--mono);font-size:12px;white-space:pre-wrap;word-break:break-word;line-height:1.8;color:var(--muted);padding:20px 0}
+    .draft-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+    .site-footer{padding:0 0 36px}.footer-top{border-top:1px solid var(--line);padding-top:46px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+    .footer-word{font-family:var(--serif);font-size:clamp(50px,10vw,138px);line-height:1;letter-spacing:-.06em;display:block}
+    .footer-nav{display:flex;flex-wrap:wrap;gap:22px;font-size:12px;color:var(--muted)}.footer-bottom{margin-top:36px;display:flex;justify-content:space-between;gap:24px;font-size:10px;color:var(--soft);line-height:1.8;padding-right:100px}
+
+    /* Native dialogs keep background focus out of menu and search. */
+    dialog{position:fixed;margin:auto;width:min(580px,calc(100% - 32px));max-height:calc(100svh - 48px);background:#11151d;color:#fff;border:1px solid var(--line);border-radius:16px;padding:0;box-shadow:0 40px 100px #0008;z-index:120;overflow:auto}
+    dialog::backdrop{background:rgba(0,0,0,.76)}
+    .dialog-inner{padding:30px}.dialog-head{display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:17px}
+    .dialog-head h2{font-family:var(--sans);font-size:18px;letter-spacing:-.02em;line-height:1.3}
+    .menu-links{display:grid;padding:22px 0 10px}.menu-links a{font-family:var(--serif);font-size:32px;line-height:1.25;padding:11px 0;display:flex;justify-content:space-between;align-items:center}.menu-links span{font-family:var(--mono);font-size:10px;color:var(--soft)}
+    .menu-contact{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:20px;margin-top:14px;overflow-wrap:anywhere}
+    #site-search{width:100%;min-height:52px;padding:15px;border-radius:6px;margin-top:22px;background:rgba(255,255,255,.05);border:1px solid var(--line);font-size:15px}
+    .search-results{display:grid;gap:5px;margin-top:16px}.search-results a{display:flex;flex-direction:column;gap:5px;padding:14px 8px;border-bottom:1px solid var(--line);font-size:14px}.search-results a span{font-size:12px;color:var(--muted)}
+    .search-status{font-size:12px;color:var(--muted);padding:15px 0}
+
+    @media(min-width:1600px){:root{--content:1360px}.hero-content{max-width:760px}.hero h1{font-size:76px}.hero-description{font-size:15px;max-width:430px}.hero-step{width:88px}.hero-step-face{height:82px}.hero-step-face span{font-size:12px}}
+    @media(max-height:790px) and (min-width:900px){.hero-content{top:14svh}.hero h1{font-size:clamp(40px,4.4vw,58px)}.hero-badge{margin-bottom:13px}.hero-cta{margin-top:21px}.hero-route{bottom:10svh}}
+    @media(max-width:1140px){.desktop-nav{gap:12px}.nav-dot{width:3px;height:3px}.desktop-nav a{font-size:12px}.nav-tools{gap:4px}.site-header{padding-inline:28px}.brand{font-size:19px}}
+    @media(max-width:1023px){.desktop-nav{display:none}.capabilities-layout{grid-template-columns:1fr 1.25fr;gap:40px}.principle-grid{gap:35px}.dossier-intro{width:32vw}.motion-ready .dossier-stage{left:33%;right:0}.phase-button{gap:7px;margin-right:3px;padding-right:8px;font-size:10px}.comparison{gap:26px}.pricing-layout,.about-layout,.contact-layout{gap:44px}.where-layout{gap:40px}}
+    @media(max-width:767px){
+      :root{--gutter:24px}.site-header{padding:18px 24px;gap:8px}.brand{font-size:19px}.language{display:none}.nav-tools{gap:0}.nav-tools .icon-button{width:40px;height:40px}.brand-mark{width:29px;height:29px}
+      .hero{min-height:700px}.hero-content{left:24px;right:24px;top:17svh;max-width:none}.hero h1{font-size:clamp(34px,7.8vw,58px)}.hero h1 .hero-brand{font-size:1.36em;margin-bottom:8px}.hero-badge{font-size:11px;max-width:30ch;line-height:1.5}.hero-description{font-size:13px;max-width:34ch}.hero-cta{gap:10px 20px}.hero-cta .text-link{min-height:40px}.hero-route{left:24px;right:24px;bottom:12svh;width:min(348px,calc(100% - 48px))}.hero-step{flex:1;width:auto}.hero-step-face{padding:11px 9px}.hero-step-face span{font-size:10px}.hero-step-number{font-size:10px}
+      h2{font-size:clamp(35px,8.8vw,55px)}.scene{padding:88px 0}.body-copy{font-size:15px;line-height:1.8}
+      .condition{min-height:auto}.fragments{grid-template-columns:1fr;gap:38px;margin-top:46px}.fragment{width:90%;max-width:430px}.fragment:nth-child(2){margin-top:0;margin-left:auto}.fragment:nth-child(3){margin-top:0}.fragment-paper{padding:24px}.fragment-value{font-size:30px}.fragment-title{margin-bottom:22px}.fragment .review-required{margin-top:24px}
+      .motion-ready .dossier-scroll{height:350svh}.motion-ready .dossier-viewport{min-height:670px}.motion-ready .dossier-intro{top:96px;left:24px;right:24px;width:auto}.dossier-intro h2{font-size:32px;line-height:1.12}.dossier-intro h2 br{display:none}.dossier-intro .eyebrow{margin-bottom:12px;font-size:10px}.dossier-intro .body-copy{font-size:12px;line-height:1.65;max-width:42ch;margin-top:12px}.dossier-intro .text-link{display:none}
+      .motion-ready .dossier-stage{left:10px;right:10px;top:220px;bottom:168px}.paper-position{width:136px;height:191px;margin-left:-68px;margin-top:-95.5px}.dossier-paper{padding:12px 10px}.paper-header{font-size:7px}.paper-body{margin-top:13px;gap:8px}.paper-body strong{font-size:9px}.paper-body small{font-size:7px}.paper-foot{font-size:6px;left:10px;right:10px}.folder-cover,.folder-back{width:206px;height:276px;margin-left:-103px;margin-top:-138px}.folder-cover{padding:20px}.folder-title{font-size:27px;margin-top:28px}.folder-metadata{left:20px;right:20px;bottom:20px}.folder-brand{font-size:12px}.folder-metadata div{font-size:8px}.annotation{padding:8px 11px;font-size:10px;max-width:197px}.annotation .mono{font-size:7px}#annotation-name{left:2%;top:-1%}#annotation-date{right:1%;top:33%}#annotation-amount{left:6%;bottom:-8%}.verification-slip{padding:19px;width:min(360px,92%)}.verification-slip .slip-heading{margin-bottom:14px}.slip-value{padding:10px 0}.slip-verdict{padding-top:16px;font-size:8px}.reconcile-key{gap:12px;bottom:-7%;font-size:7px}.package-stamp{width:132px;height:132px;margin:-66px}.package-stamp b{font-size:10px}.package-stamp small{font-size:7px}.package-stamp .icon{width:18px;height:18px}
+      .motion-ready .dossier-controls{left:24px;right:24px;bottom:20px}.stage-caption{display:block;margin-bottom:10px}.stage-caption p{font-size:11px;line-height:1.6;min-height:35px}.stage-caption .sim-label{font-size:8px;display:block;margin-top:8px}.phase-navigation{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0;padding-top:7px}.phase-button{display:flex;justify-content:center;margin:0;padding:5px 0;min-height:44px}.phase-button span{display:none}.phase-button b{font-size:11px;border-bottom:1px solid transparent;padding-bottom:5px}.phase-button[aria-current] b{border-bottom-color:#fff}.dossier-static{grid-template-columns:1fr;gap:20px;margin-top:30px}.dossier-intro{width:auto;margin:0 24px}.dossier-viewport{padding:80px 0;min-height:0}
+      .capabilities-layout,.where-layout,.pricing-layout,.about-layout,.contact-layout{grid-template-columns:1fr;gap:42px}.capabilities-copy{position:static}.capability summary{min-height:82px}.capability summary h3{font-size:24px}.capability-content{padding-left:0}.comparison{grid-template-columns:1fr 1fr;gap:18px}.proof-pane{padding:20px 16px}.proof-masthead{padding:17px 16px;align-items:flex-start;flex-direction:column;gap:5px}.compare-row strong{font-size:12px}.compare-row small{font-size:9px}.proof-actions{align-items:flex-start;flex-direction:column}.proof-status{font-size:11px}.work-tabs{gap:0}.work-tab{padding:9px 12px;font-size:11px}.proof-surface{border-radius:12px}.checklist{grid-template-columns:1fr}.data-table{font-size:11px}.data-table td,.data-table th{padding:13px 10px}.principles-head{margin-bottom:46px;text-align:left}.principles-head h2{font-size:clamp(45px,11vw,72px)}.principle-grid{grid-template-columns:1fr 1fr;gap:32px 26px}.principle h3{font-size:15px}.principle p{font-size:13px}.where-index{font-size:13px;gap:0 20px}.scope-note{font-size:11px;margin-top:28px}.contact-layout h2{font-size:clamp(44px,12vw,70px)}.form-pair{grid-template-columns:1fr;gap:0}.footer-top{align-items:flex-start;flex-direction:column}.footer-bottom{flex-direction:column;gap:10px}.footer-nav{gap:18px}.motion-toggle{right:14px;bottom:14px;padding:8px 10px;font-size:9px}.dialog-inner{padding:22px}.dialog-head h2{font-size:17px}
+    }
+    @media(max-width:390px){.site-header{padding-inline:18px}.hero-content,.hero-route{left:20px;right:20px}.hero-route{width:calc(100% - 40px)}.hero-badge{font-size:10px}.hero h1{font-size:33px}.hero-step-face{height:69px}.principle-grid{grid-template-columns:1fr}.phase-button{padding:0}.compare-row strong{font-size:11px}.proof-actions .orchid-button{padding-right:14px}.hero{min-height:720px}}
+    @media(max-height:669px){
+      .motion-ready .dossier-viewport{height:100svh;min-height:0}
+      .motion-ready .dossier-intro{top:78px}
+      .dossier-intro .body-copy{display:none}
+      .motion-ready .dossier-stage{top:155px;bottom:120px}
+      .stage-caption p{min-height:0}
+      .folder-cover,.folder-back{height:230px;margin-top:-115px;width:176px;margin-left:-88px}
+      .folder-title{font-size:23px;margin-top:20px}.folder-metadata{bottom:16px;gap:5px}
+      .phase-button{min-height:36px}.stage-caption .sim-label{margin-top:3px}
+      .verification-slip{padding:14px}.verification-slip .slip-heading{margin-bottom:4px}
+      .slip-value{padding:7px 0}.slip-value strong{font-size:13px}.slip-verdict{padding-top:10px}
+      .package-stamp{width:124px;height:124px;margin:-62px}
+    }
+    @media(max-width:767px) and (max-height:669px){.dossier-intro h2{font-size:27px}.motion-ready .dossier-stage{top:166px;bottom:130px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.motion-subject,.hero-content,.hero-route{opacity:1!important;transform:none!important}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <svg class="symbol-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+      <symbol id="i-diagonal" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+      <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></symbol>
+      <symbol id="i-file" viewBox="0 0 24 24"><path d="M5 3h9l5 5v13H5V3ZM14 3v6h5M8 13h8M8 17h5"/></symbol>
+      <symbol id="i-extract" viewBox="0 0 24 24"><rect x="3" y="4" width="14" height="10" rx="2"/><path d="M7 20h6M10 14v6"/></symbol>
+      <symbol id="i-compare" viewBox="0 0 24 24"><path d="M9 4H4v16h5M15 4h5v16h-5M8 9h8m-2-2 2 2-2 2M16 15H8m2-2-2 2 2 2"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+      <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+      <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7V5Z"/></symbol>
+      <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M15 4H6a2 2 0 0 0-2 2v9"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+      <symbol id="i-flag" viewBox="0 0 24 24"><path d="M6 21V3h13l-3 5 3 5H6"/></symbol>
+      <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v16m-6-6 6 6 6-6"/></symbol>
+      <symbol id="i-lightning" viewBox="0 0 24 24"><path d="m13 2-10 12h7l-1 8 10-12h-7l1-8Z"/></symbol>
+    </defs>
+  </svg>
+
+  <div class="ambient" aria-hidden="true">
+    <div class="ambient-frame" id="ambient-frame">
+      <video id="ambient-video" autoplay muted loop playsinline preload="auto" tabindex="-1" src="https://pub-1e5b4001b36b47e28e6a2fb775966a79.r2.dev/templates/orchid/hero.mp4"></video>
+    </div>
+    <div class="ambient-shade"></div>
+    <div class="ambient-light"></div>
+    <div class="reading-veil" id="reading-veil"></div>
+  </div>
+
+  <div id="root">
+    <header class="site-header" id="site-header">
+      <a class="brand" href="#hero" aria-label="Daftrify home">
+        <svg class="brand-mark" width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <rect x="2" y="2" width="28" height="28" rx="9" stroke="currentColor" stroke-width="1.5"/>
+          <g fill="none" stroke="currentColor" stroke-width="1.3"><ellipse cx="16" cy="11.2" rx="2.3" ry="3.3"/><ellipse cx="16" cy="20.8" rx="2.3" ry="3.3"/><ellipse cx="11.2" cy="16" rx="3.3" ry="2.3"/><ellipse cx="20.8" cy="16" rx="3.3" ry="2.3"/></g>
+          <circle cx="16" cy="16" r="1.7" fill="currentColor"/>
+        </svg>
+        <span>Daftrify</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Primary">
+        <a href="#hero" data-nav="hero">Home</a><i class="nav-dot" aria-hidden="true"></i>
+        <a href="#casework" data-nav="casework">The process</a><i class="nav-dot" aria-hidden="true"></i>
+        <a href="#capabilities" data-nav="capabilities">Capabilities</a><i class="nav-dot" aria-hidden="true"></i>
+        <a href="#proof" data-nav="proof">Our work</a><i class="nav-dot" aria-hidden="true"></i>
+        <a href="#intake" data-nav="intake">Contact</a>
+      </nav>
+      <div class="nav-tools">
+        <span class="language" lang="en">EN</span>
+        <button class="icon-button" type="button" data-open="search-dialog" aria-label="Search this site" aria-controls="search-dialog" aria-haspopup="dialog" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg></button>
+        <button class="icon-button" type="button" data-open="menu-dialog" aria-label="Open navigation" aria-controls="menu-dialog" aria-haspopup="dialog" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="hero" aria-labelledby="hero-title">
+        <div class="hero-content" id="hero-content">
+          <div class="hero-badge" data-intro="badge">
+            <span class="badge-records" aria-hidden="true"><svg class="icon"><use href="#i-file"/></svg><svg class="icon"><use href="#i-file"/></svg><svg class="icon"><use href="#i-check"/></svg></span>
+            <span>Document operations. A human final check.</span>
+          </div>
+          <h1 id="hero-title" data-intro="heading"><span class="hero-brand">Daftrify.</span><span class="hero-line">Clarity in <em>every file.</em></span></h1>
+          <p class="hero-description" data-intro="copy">An outsourced desk for document-heavy work. We organize, reconcile and verify your records, so your next step is a clear one.</p>
+          <div class="hero-cta" data-intro="actions">
+            <a class="orchid-button" href="#casework" data-tactile><span class="button-tile"><svg class="icon" aria-hidden="true"><use href="#i-lightning"/></svg></span><span class="button-text">Explore the process</span></a>
+            <a class="text-link" href="#intake">Start a conversation <svg class="icon" style="width:14px;height:14px" aria-hidden="true"><use href="#i-diagonal"/></svg></a>
+          </div>
+        </div>
+        <nav class="hero-route" id="hero-route" aria-label="Explore the document workflow" data-intro="steps">
+          <a class="hero-step" href="#casework" data-stage-link="0"><span class="hero-step-face" data-tactile><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg><span>Receive</span></span><span class="hero-step-number">01</span></a>
+          <a class="hero-step" href="#casework" data-stage-link="2"><span class="hero-step-face" data-tactile><svg class="icon" aria-hidden="true"><use href="#i-extract"/></svg><span>Extract</span></span><span class="hero-step-number">02</span></a>
+          <a class="hero-step" href="#casework" data-stage-link="5"><span class="hero-step-face" data-tactile><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Verify</span></span><span class="hero-step-number">03</span></a>
+          <a class="hero-step" href="#casework" data-stage-link="6"><span class="hero-step-face" data-tactile><svg class="icon" aria-hidden="true"><use href="#i-down"/></svg><span>Return</span></span><span class="hero-step-number">04</span></a>
+        </nav>
+      </section>
+
+      <section class="scene condition" id="condition" aria-labelledby="condition-title">
+        <div class="container">
+          <div class="motion-wrap" data-enter><div class="motion-subject scene-title"><h2 id="condition-title">A small difference.<br>A different <em>story.</em></h2><p class="body-copy">A name, a date, one misplaced digit. We make the differences visible before they travel further.</p></div></div>
+          <div class="fragments">
+            <figure class="fragment motion-wrap" data-enter data-axis="left"><div class="motion-subject"><div data-float style="--angle:-3deg"><div class="fragment-paper"><div class="fragment-title"><span>Identity record</span><span>Source A / B</span></div><p class="fragment-value"><s>Muhammad Ahmed</s><br><strong>Mohammad Ahmed</strong></p><p class="review-required">Name mismatch</p></div></div><figcaption class="fragment-caption">The same person. Two spellings. A difference that needs a source, not a guess.</figcaption></div></figure>
+            <figure class="fragment motion-wrap" data-enter><div class="motion-subject"><div data-float style="--angle:2deg"><div class="fragment-paper"><div class="fragment-title"><span>Form and letter</span><span>Date</span></div><p class="fragment-value"><s>04/09/2026</s><br><strong>05/09/2026</strong></p><p class="review-required">Date conflict</p></div></div><figcaption class="fragment-caption">One date changes between records. Which one does the original support?</figcaption></div></figure>
+            <figure class="fragment motion-wrap" data-enter data-axis="right"><div class="motion-subject"><div data-float style="--angle:-1.5deg"><div class="fragment-paper"><div class="fragment-title"><span>Financial summary</span><span>Amount</span></div><p class="fragment-value"><s>12,500</s><br><strong>12,050</strong></p><p class="review-required">Digits transposed</p></div></div><figcaption class="fragment-caption">The number looks familiar. A cross-check tells a different story.</figcaption></div></figure>
+          </div>
+          <p class="sim-label">Simulated demonstration. All names, dates and amounts are fictional.</p>
+        </div>
+      </section>
+
+      <section class="dossier-section" id="casework" aria-labelledby="casework-title">
+        <div class="dossier-scroll" id="dossier-scroll">
+          <div class="dossier-viewport">
+            <div class="dossier-intro">
+              <span class="eyebrow">The working process</span>
+              <h2 id="casework-title">Every source.<br>In the <em>same frame.</em></h2>
+              <p class="body-copy" id="dossier-description">A closed folder becomes a working set. Follow seven records from intake to a source-checked package.</p>
+              <a class="text-link" href="#capabilities" style="margin-top:20px">Skip to capabilities <svg class="icon" style="width:14px;height:14px" aria-hidden="true"><use href="#i-down"/></svg></a>
+            </div>
+
+            <div class="dossier-stage" id="dossier-stage" aria-hidden="true">
+              <div class="dossier-pointer" id="dossier-pointer">
+                <div class="dossier-idle" id="dossier-idle">
+                  <div class="dossier-planes">
+                    <div class="folder-back" id="folder-back"></div>
+                    <div class="paper-position" data-paper="0"><div class="paper-float"><article class="dossier-paper"><div class="paper-header"><b>Identity record</b><span>01</span></div><div class="paper-body"><div><small>Full name</small><strong>Muhammad Ahmed</strong></div><div><small>Record reference</small><strong>SYN-014</strong></div><div><small>Record date</small><strong>04/09/2026</strong></div></div><p class="paper-foot">SYNTHETIC / SOURCE RECORD</p></article></div></div>
+                    <div class="paper-position" data-paper="1"><div class="paper-float"><article class="dossier-paper"><div class="paper-header"><b>Financial record</b><span>02</span></div><div class="paper-body"><div><small>Recorded amount</small><strong>12,500</strong></div><table class="paper-table"><tbody><tr><td>Reference</td><td>SYN-022</td></tr><tr><td>Period</td><td>September</td></tr><tr><td>Source</td><td>Original</td></tr></tbody></table></div><p class="paper-foot">SYNTHETIC / SOURCE RECORD</p></article></div></div>
+                    <div class="paper-position" data-paper="2"><div class="paper-float"><article class="dossier-paper"><div class="paper-header"><b>Supporting evidence</b><span>03</span></div><div class="paper-body"><div><small>Evidence index</small><strong>Supporting records</strong></div><table class="paper-table"><tbody><tr><td>Annex A</td><td>Present</td></tr><tr><td>Annex B</td><td>Present</td></tr><tr><td>Source references</td><td>Attached</td></tr></tbody></table></div><p class="paper-foot">SYNTHETIC / SUPPORTING SET</p></article></div></div>
+                    <div class="paper-position" data-paper="3"><div class="paper-float"><article class="dossier-paper"><div class="paper-header"><b>Working form</b><span>04</span></div><div class="paper-body"><div><small>Name entered</small><strong class="mini-exception" data-paper-fix="name">Mohammad Ahmed</strong></div><div><small>Date entered</small><strong class="mini-exception" data-paper-fix="date">05/09/2026</strong></div><div><small>Amount entered</small><strong class="mini-exception" data-paper-fix="amount">12,050</strong></div></div><p class="paper-foot">SYNTHETIC / WORKING COPY</p></article></div></div>
+                    <div class="paper-position" data-paper="4"><div class="paper-float"><article class="dossier-paper"><div class="paper-header"><b>Correspondence</b><span>05</span></div><div class="paper-body"><div><small>Subject</small><strong>Record clarification</strong></div><p>Confirm the entries against the attached source records. Retain the original values in the review log.</p></div><p class="paper-foot">SYNTHETIC / REFERENCE NOTE</p></article></div></div>
+                    <div class="paper-position" data-paper="5"><div class="paper-float"><article class="dossier-paper"><div class="paper-header"><b>Working table</b><span>06</span></div><div class="paper-body"><small>Cross-file comparison</small><table class="paper-table"><tbody><tr><td>Identity</td><td>SYN-014</td></tr><tr><td>Financial</td><td>SYN-022</td></tr><tr><td>Shared fields</td><td>03</td></tr><tr><td>Review log</td><td>Attached</td></tr></tbody></table></div><p class="paper-foot">SYNTHETIC / STRUCTURED OUTPUT</p></article></div></div>
+                    <div class="paper-position" data-paper="6"><div class="paper-float"><article class="dossier-paper"><div class="paper-header"><b>Supporting statement</b><span>07</span></div><div class="paper-body"><div><small>Working set</small><strong>Document package</strong></div><p>Prepared for review with original records, a comparison log, and a visible record of corrections.</p></div><p class="paper-foot">SYNTHETIC / PACKAGE NOTE</p></article></div></div>
+                    <div class="folder-cover" id="folder-cover"><p class="folder-brand">DAFTRIFY</p><p class="folder-title">A clearer<br>working file.</p><div class="folder-metadata"><div><span>DOCUMENT SET</span><span>07 FILES</span></div><div><span>STATUS</span><span id="folder-status">RECEIVED</span></div><div><span>REFERENCE</span><span>SIM-000</span></div></div></div>
+                  </div>
+                </div>
+              </div>
+              <svg class="connections" id="connections" viewBox="0 0 800 520" preserveAspectRatio="none" aria-hidden="true"><path d="M180 150 C300 150 315 345 500 345"/><path d="M390 90 C480 90 540 240 640 245"/><path d="M145 380 C300 385 380 130 640 170"/><circle cx="180" cy="150" r="3"/><circle cx="500" cy="345" r="3"/><circle cx="390" cy="90" r="3"/><circle cx="640" cy="245" r="3"/></svg>
+              <div class="annotation" id="annotation-name"><span class="mono">Name / review required</span><s>Mohammad Ahmed</s><br><b>Muhammad Ahmed</b> in the source</div>
+              <div class="annotation" id="annotation-date"><span class="mono">Date / review required</span><s>05/09/2026</s><br><b>04/09/2026</b> in the source</div>
+              <div class="annotation" id="annotation-amount"><span class="mono">Amount / review required</span><s>12,050</s><br><b>12,500</b> in the source</div>
+              <div class="reconcile-key" id="reconcile-key"><span>Source</span><span>Compare</span><span>Review</span><span>Reconcile</span></div>
+              <div class="verification-slip" id="verification-slip"><div class="slip-heading"><span class="mono">Human verification</span><span class="mono">SIM-000</span></div><div class="slip-value"><small>Source</small><strong>Muhammad Ahmed</strong></div><div class="slip-value"><small>Extracted</small><strong id="slip-working">Mohammad Ahmed</strong></div><p class="slip-verdict"><svg class="icon" style="width:14px;height:14px" aria-hidden="true"><use id="slip-icon" href="#i-flag"/></svg><span id="slip-status">Review required</span></p></div>
+              <div class="package-stamp" id="package-stamp"><div><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><b>VERIFIED</b><small>07 files / source checked</small></div></div>
+            </div>
+
+            <div class="dossier-controls">
+              <div class="stage-caption"><p id="stage-caption">Received. Seven synthetic records are logged as one document set.</p><span class="sim-label">Simulated demonstration</span></div>
+              <nav class="phase-navigation" aria-label="Demonstration stages">
+                <button type="button" class="phase-button" data-phase="0" aria-label="Go to Received" aria-current="step"><b>01</b><span>Received</span></button>
+                <button type="button" class="phase-button" data-phase="1" aria-label="Go to Open"><b>02</b><span>Open</span></button>
+                <button type="button" class="phase-button" data-phase="2" aria-label="Go to Separate"><b>03</b><span>Separate</span></button>
+                <button type="button" class="phase-button" data-phase="3" aria-label="Go to Exceptions"><b>04</b><span>Exceptions</span></button>
+                <button type="button" class="phase-button" data-phase="4" aria-label="Go to Reconcile"><b>05</b><span>Reconcile</span></button>
+                <button type="button" class="phase-button" data-phase="5" aria-label="Go to Human check"><b>06</b><span>Human check</span></button>
+                <button type="button" class="phase-button" data-phase="6" aria-label="Go to Package"><b>07</b><span>Package</span></button>
+              </nav>
+            </div>
+            <ol class="dossier-static" aria-label="The complete simulated document workflow">
+              <li><h3>Receive the set.</h3><p>Seven synthetic files are logged: identity, financial, evidence, a form, correspondence, a spreadsheet and a statement.</p></li>
+              <li><h3>Open and organize.</h3><p>Keep the original sources separate from working copies. Every file has a clear reference.</p></li>
+              <li><h3>Separate the records.</h3><p>Extract names, dates and amounts into a structure where related values can be compared.</p></li>
+              <li><h3>Make differences visible.</h3><p>Mohammad / Muhammad, 05/09 / 04/09 and 12,050 / 12,500 become three explicit exceptions.</p></li>
+              <li><h3>Reconcile against source.</h3><p>Connect each exception with the original record. A working value is not accepted just because it looks plausible.</p></li>
+              <li><h3>Complete the human check.</h3><p>The source reads Muhammad Ahmed, 04/09/2026 and 12,500. Correct the working copy and retain the comparison log.</p></li>
+              <li><h3>Package a clear return.</h3><p>In this simulated demonstration the three differences are resolved. Seven organized files are ready for review, not guaranteed acceptance.</p></li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene" id="capabilities" aria-labelledby="capabilities-title">
+        <div class="container capabilities-layout">
+          <div class="capabilities-copy motion-wrap" data-enter><div class="motion-subject"><h2 id="capabilities-title">The work<br>behind the <em>clarity.</em></h2><p class="body-copy">One connected service, from an unstructured stack to a working package you can actually use.</p></div></div>
+          <div>
+            <div class="motion-wrap" data-enter><div class="motion-subject"><details class="capability" name="capabilities"><summary><span class="cap-number">01</span><h3>Extract</h3><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary><div class="capability-content"><p>Pull text, fields and tables into working information, with references back to the material they came from.</p><div class="cap-artifact" data-float>Source: <strong>record_014.pdf</strong><br>Output: <strong>structured working sheet</strong></div></div></details></div></div>
+            <div class="motion-wrap" data-enter><div class="motion-subject"><details class="capability" name="capabilities"><summary><span class="cap-number">02</span><h3>Normalize</h3><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary><div class="capability-content"><p>Bring inconsistent date, amount and field formats into a consistent structure without changing what the source says.</p><div class="cap-artifact" data-float>04/09/2026 <strong>becomes</strong> 2026-09-04<br>12 500 <strong>becomes</strong> 12,500</div></div></details></div></div>
+            <div class="motion-wrap" data-enter><div class="motion-subject"><details class="capability" name="capabilities" open><summary><span class="cap-number">03</span><h3>Reconcile</h3><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary><div class="capability-content"><p>Connect related information across files. Find the points of agreement and document the points that need a closer look.</p><div class="cap-artifact" data-float>Working entry: <strong>12,050</strong><br>Source record: <strong>12,500</strong><br>Action: <strong>comparison required</strong></div></div></details></div></div>
+            <div class="motion-wrap" data-enter><div class="motion-subject"><details class="capability" name="capabilities"><summary><span class="cap-number">04</span><h3>Flag</h3><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary><div class="capability-content"><p>Surface missing items, conflicting versions and unreadable fields in an exception register. Uncertainty stays visible.</p><div class="cap-artifact" data-float>Annex C: <strong>not supplied</strong><br>Action: <strong>request from source holder</strong></div></div></details></div></div>
+            <div class="motion-wrap" data-enter><div class="motion-subject"><details class="capability" name="capabilities"><summary><span class="cap-number">05</span><h3>Human verify</h3><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary><div class="capability-content"><p>A reviewer checks working information against source material. A correction needs evidence, not confidence alone.</p><div class="cap-artifact" data-float>Compare <strong>the original</strong><br>Confirm <strong>the working entry</strong><br>Keep <strong>the review trail</strong></div></div></details></div></div>
+            <div class="motion-wrap" data-enter><div class="motion-subject"><details class="capability" name="capabilities"><summary><span class="cap-number">06</span><h3>Package</h3><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary><div class="capability-content"><p>Return organized working files, a clear index and the exception record. Open questions do not disappear at handover.</p><div class="cap-artifact" data-float>01 / <strong>Working files</strong><br>02 / <strong>Source index</strong><br>03 / <strong>Exception register</strong></div></div></details></div></div>
+            <p class="sim-label" style="margin-top:22px">Illustrative workflow examples, not client records.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene" id="proof" aria-labelledby="proof-title">
+        <div class="container">
+          <div class="motion-wrap" data-enter><div class="motion-subject work-header"><h2 id="proof-title">Don't just take our word.<br><em>Check the work.</em></h2><p class="body-copy section-copy">Three small demonstrations. Real interactions, entirely synthetic records.</p><div class="work-tabs" role="tablist" aria-label="Choose a simulated demonstration"><button class="work-tab" id="tab-consistency" role="tab" aria-selected="true" aria-controls="proof-consistency" data-proof="consistency">Consistency audit</button><button class="work-tab" id="tab-extraction" role="tab" aria-selected="false" aria-controls="proof-extraction" tabindex="-1" data-proof="extraction">Structured extraction</button><button class="work-tab" id="tab-evidence" role="tab" aria-selected="false" aria-controls="proof-evidence" tabindex="-1" data-proof="evidence">Evidence completeness</button></div></div></div>
+          <div class="motion-wrap" data-enter data-axis="depth"><div class="motion-subject proof-surface">
+            <div class="proof-masthead"><span class="proof-title" id="proof-title-current">Source-to-working comparison</span><span class="sim-label">Simulated demonstration</span></div>
+            <div class="proof-pane" id="proof-consistency" role="tabpanel" aria-labelledby="tab-consistency" tabindex="0">
+              <div class="comparison">
+                <div class="comparison-column"><p>Original source</p><div class="compare-row"><small>Name / identity record</small><strong>Muhammad Ahmed</strong></div><div class="compare-row"><small>Date / source letter</small><strong>04/09/2026</strong></div><div class="compare-row"><small>Amount / financial record</small><strong>12,500</strong></div></div>
+                <div class="comparison-column" id="working-rows"><p>Working copy</p><div class="compare-row"><small>Name / form</small><strong><mark>Mohammad Ahmed</mark></strong></div><div class="compare-row"><small>Date / form</small><strong><mark>05/09/2026</mark></strong></div><div class="compare-row"><small>Amount / summary</small><strong><mark>12,050</mark></strong></div></div>
+              </div>
+              <div class="proof-actions"><p class="proof-status" id="verification-status" role="status"><svg class="icon" aria-hidden="true"><use href="#i-flag"/></svg><span>Three differences require a source check.</span></p><button class="orchid-button" id="verify-button" type="button" data-tactile><span class="button-tile"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="button-text">Verify against source</span></button></div>
+            </div>
+            <div class="proof-pane" id="proof-extraction" role="tabpanel" aria-labelledby="tab-extraction" tabindex="0" hidden>
+              <p class="proof-explainer">Normalize the formats. An unreadable amount stays an exception; it must not turn into a guessed number.</p>
+              <div class="table-scroll" tabindex="0" role="region" aria-label="Synthetic extraction table"><table class="data-table"><caption class="sr-only">Three synthetic invoice entries and their review status</caption><thead><tr><th scope="col">Reference</th><th scope="col">Party</th><th scope="col">Date</th><th scope="col">Amount</th><th scope="col">Status</th></tr></thead><tbody id="extraction-rows"><tr><td>Inv 7741</td><td>M. Ahmed</td><td>4/9/2026</td><td>12 500</td><td>Raw entry</td></tr><tr><td>inv-7742</td><td>M. Ahmed</td><td>05.09.2026</td><td>8,900</td><td>Raw entry</td></tr><tr><td>INV 7743</td><td>M. Ahmed</td><td>6/9/2026</td><td class="pending">10,4?0</td><td class="pending">Unclear source</td></tr></tbody></table></div>
+              <div class="proof-actions"><p class="proof-status" id="extraction-status" role="status">Dates are day/month/year in this demonstration.</p><div style="display:flex;gap:18px;flex-wrap:wrap"><button class="text-link" id="download-csv" type="button">Download sample CSV <svg class="icon" style="width:14px;height:14px" aria-hidden="true"><use href="#i-down"/></svg></button><button class="orchid-button" id="normalize-button" type="button" data-tactile><span class="button-tile"><svg class="icon" aria-hidden="true"><use href="#i-extract"/></svg></span><span class="button-text">Normalize entries</span></button></div></div>
+            </div>
+            <div class="proof-pane" id="proof-evidence" role="tabpanel" aria-labelledby="tab-evidence" tabindex="0" hidden>
+              <p class="proof-explainer">A package can contain many files and still be incomplete. The checklist records what is present, not what we assume exists.</p>
+              <ul class="checklist"><li>Identity record <span class="list-status">Present <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span></li><li>Financial record <span class="list-status">Present <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span></li><li>Supporting form <span class="list-status">Present <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span></li><li>Annex A <span class="list-status">Present <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span></li><li>Annex B <span class="list-status">Present <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span></li><li>Covering statement <span class="list-status">Present <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span></li><li>Annex C <span class="list-status missing" id="annex-state">Missing <svg class="icon" aria-hidden="true"><use href="#i-flag"/></svg></span></li></ul>
+              <div class="proof-actions"><p class="proof-status" id="evidence-status" role="status">6 of 7 listed items present. Annex C is still required.</p><button class="orchid-button" id="evidence-button" type="button" data-tactile><span class="button-tile"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span><span class="button-text">Add sample evidence</span></button></div>
+            </div>
+          </div></div>
+        </div>
+      </section>
+
+      <section class="scene" id="principles" aria-labelledby="principles-title">
+        <div class="container">
+          <div class="motion-wrap" data-enter data-axis="depth"><div class="motion-subject principles-head"><h2 id="principles-title">The source is<br><em>the standard.</em></h2></div></div>
+          <div class="principle-grid">
+            <div class="motion-wrap" data-enter><article class="motion-subject principle"><div class="principle-line" aria-hidden="true"><i data-line-loop></i></div><h3>Source first.</h3><p>A working value needs a traceable record behind it.</p></article></div>
+            <div class="motion-wrap" data-enter><article class="motion-subject principle"><div class="principle-line" aria-hidden="true"><i data-line-loop></i></div><h3>Exceptions stay visible.</h3><p>Open questions belong where a reviewer can find them.</p></article></div>
+            <div class="motion-wrap" data-enter><article class="motion-subject principle"><div class="principle-line" aria-hidden="true"><i data-line-loop></i></div><h3>A human final check.</h3><p>Speed does not replace reading back against the original.</p></article></div>
+            <div class="motion-wrap" data-enter><article class="motion-subject principle"><div class="principle-line" aria-hidden="true"><i data-line-loop></i></div><h3>No invented facts.</h3><p>An unclear field stays unclear until the source resolves it.</p></article></div>
+            <div class="motion-wrap" data-enter><article class="motion-subject principle"><div class="principle-line" aria-hidden="true"><i data-line-loop></i></div><h3>No borrowed proof.</h3><p>Our demonstrations explain the method. They are not client claims.</p></article></div>
+            <div class="motion-wrap" data-enter><article class="motion-subject principle"><div class="principle-line" aria-hidden="true"><i data-line-loop></i></div><h3>A clearer return.</h3><p>The output should be easier to understand than the input.</p></article></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene" id="where" aria-labelledby="where-title"><div class="container">
+        <div class="where-layout"><div class="motion-wrap" data-enter><div class="motion-subject"><h2 id="where-title">Wherever work<br>runs on <em>paperwork.</em></h2><p class="body-copy section-copy">Document support for the people making professional decisions. One capability, not one industry.</p></div></div><div class="motion-wrap" data-enter data-axis="right"><ul class="motion-subject where-index"><li>Professional services</li><li>Finance and admin</li><li>Real estate</li><li>Consulting</li><li>Compliance support</li><li>Legal support</li><li>Healthcare administration</li><li>Immigration documentation</li><li>Construction documentation</li><li>Education</li><li>Procurement</li><li>Document-heavy back offices</li></ul></div></div>
+        <p class="scope-note">DAFTRIFY provides operational document support, not legal, medical, tax, financial or immigration advice. Professional judgments and filing decisions remain with you and your advisers. No approval or outcome is guaranteed.</p>
+      </div></section>
+
+      <section class="scene" id="pricing" aria-labelledby="pricing-title"><div class="container pricing-layout">
+        <div class="motion-wrap" data-enter><div class="motion-subject"><h2 id="pricing-title">Scoped to your<br><em>actual set.</em></h2><p class="body-copy section-copy">A recurring workflow and a one-off file need different kinds of attention. Describe the work first; agree the scope, timing and price before starting.</p><a class="orchid-button" href="#intake" data-tactile><span class="button-tile"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span><span class="button-text">Discuss your workflow</span></a></div></div>
+        <ol class="scope-list"><li class="motion-wrap" data-enter><span class="mono">01</span><div class="motion-subject"><h3>What comes in?</h3><p>The document types, approximate volume and condition of the sources.</p></div></li><li class="motion-wrap" data-enter><span class="mono">02</span><div class="motion-subject"><h3>What needs checking?</h3><p>The shared fields, known gaps, comparison rules and required review.</p></div></li><li class="motion-wrap" data-enter><span class="mono">03</span><div class="motion-subject"><h3>What should come back?</h3><p>A structured sheet, an organized dossier, an exception register, or a recurring working package.</p></div></li></ol>
+      </div></section>
+
+      <section class="scene" id="about" aria-labelledby="about-title"><div class="container about-layout">
+        <div class="motion-wrap" data-enter><div class="motion-subject"><span class="eyebrow">The person behind the desk</span><h2 id="about-title">Technical work.<br><em>Human attention.</em></h2><p class="body-copy section-copy">I'm Ghulam Mustafa, the founder of DAFTRIFY. This desk is built around a simple responsibility: make document-heavy work clearer without losing its connection to the source.</p><div class="founder-signoff"><strong>Ghulam Mustafa</strong><span>Founder, DAFTRIFY</span><span>Faisalabad, Pakistan</span></div></div></div>
+        <div class="motion-wrap" data-enter data-axis="right"><div class="motion-subject" id="faqs">
+          <details class="faq" name="faq" open><summary>What kind of work can I bring?<svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary><p>Document extraction, record reconciliation, evidence organization, exception checking, pre-submission preparation or recurring document operations. Start with a description of your workflow.</p></details>
+          <details class="faq" name="faq"><summary>Does the desk provide professional advice?<svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary><p>No. DAFTRIFY supports document operations and administrative review. Legal, medical, tax, financial and immigration judgments belong to the appropriate qualified professionals.</p></details>
+          <details class="faq" name="faq"><summary>How are timing and pricing agreed?<svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary><p>After the type, volume, source quality and required output are understood. There is no fixed turnaround or package price published here.</p></details>
+          <details class="faq" name="faq"><summary>Should I send sensitive documents now?<svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary><p>Start with a non-sensitive description. Agree the scope and handling arrangements before sharing records. This website does not include a document-upload service.</p></details>
+          <details class="faq" name="faq"><summary>Are the examples actual client projects?<svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary><p>No. Every demonstration on this page uses synthetic records to show the method. No client history, customer results or approval rates are being claimed.</p></details>
+        </div></div>
+      </div></section>
+
+      <section class="scene" id="intake" aria-labelledby="contact-title"><div class="container contact-layout">
+        <div class="motion-wrap" data-enter><div class="motion-subject"><h2 id="contact-title">Bring the work.<br>Let's find<br><em>the clarity.</em></h2><p class="body-copy section-copy">Tell us what arrives on your desk, what makes it difficult, and what you need to hand over.</p><a class="contact-email" href="mailto:daftrify.services@gmail.com">daftrify.services@gmail.com</a></div></div>
+        <div class="motion-wrap" data-enter data-axis="right"><div class="motion-subject">
+          <form class="inquiry-form" id="inquiry-form" novalidate>
+            <div class="form-pair"><div class="field"><label for="contact-name">Your name</label><input id="contact-name" name="name" autocomplete="name" required maxlength="100" aria-describedby="name-error"><p class="field-error" id="name-error" hidden>Please enter your name.</p></div><div class="field"><label for="contact-email">Email address</label><input id="contact-email" name="email" type="email" autocomplete="email" required maxlength="180" aria-describedby="email-error"><p class="field-error" id="email-error" hidden>Enter a valid email address.</p></div></div>
+            <div class="field"><label for="contact-documents">What does your document set contain?</label><input id="contact-documents" name="documents" required maxlength="240" placeholder="Document types and approximate volume" aria-describedby="documents-error"><p class="field-error" id="documents-error" hidden>Describe the documents you need help with.</p></div>
+            <div class="field"><label for="contact-context">What would a useful result look like? <span style="color:var(--soft)">(optional)</span></label><textarea id="contact-context" name="context" maxlength="2000" placeholder="The checks, output format or deadline you have in mind."></textarea></div>
+            <p class="form-note">No files needed yet. Please leave out personal record numbers. This form prepares an email draft on your device; it does not submit an enquiry automatically.</p>
+            <button class="orchid-button" type="submit" data-tactile><span class="button-tile"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></span><span class="button-text">Prepare my enquiry</span></button>
+          </form>
+          <div class="draft" id="inquiry-draft" hidden><h3 tabindex="-1" id="draft-title">Your enquiry is ready.</h3><p>Nothing has been sent. Open the draft in your email app, or copy it and send it to the address on this page.</p><div class="draft-preview" id="draft-preview"></div><div class="draft-actions"><a class="orchid-button" id="send-draft" href="mailto:daftrify.services@gmail.com" data-tactile><span class="button-tile"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></span><span class="button-text">Open email draft</span></a><button class="text-link" id="copy-draft" type="button">Copy enquiry</button><button class="text-link" id="edit-draft" type="button">Edit</button></div><p class="form-note" id="copy-status" role="status" style="margin-top:18px"></p></div>
+        </div></div>
+      </div></section>
+    </main>
+
+    <footer class="site-footer"><div class="container"><div class="motion-wrap" data-enter><div class="motion-subject footer-top"><a class="footer-word" href="#hero" aria-label="Daftrify, back to top">Daftrify.</a><nav class="footer-nav" aria-label="Footer"><a href="#casework">The process</a><a href="#proof">Our work</a><a href="#principles">Principles</a><a href="#intake">Contact</a></nav></div></div><div class="footer-bottom"><span>&copy; 2026 DAFTRIFY. Faisalabad, Pakistan.</span><span>Document operations &amp; pre-submission auditing.<br>Demonstrations are synthetic. No regulated advice or outcome guarantees.</span></div></div></footer>
+  </div>
+
+  <button class="motion-toggle" id="motion-toggle" type="button" aria-pressed="false" aria-label="Pause background and ambient motion"><svg class="icon" aria-hidden="true"><use id="motion-toggle-icon" href="#i-pause"/></svg><span id="motion-toggle-label">Pause motion</span></button>
+  <p class="sr-only" id="announcement" role="status" aria-live="polite"></p>
+
+  <dialog id="menu-dialog" aria-labelledby="menu-title"><div class="dialog-inner"><div class="dialog-head"><h2 id="menu-title">Explore Daftrify</h2><button class="icon-button" type="button" data-close aria-label="Close navigation"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></div><nav class="menu-links" aria-label="All sections"><a href="#hero">Home<span>01</span></a><a href="#casework">The process<span>02</span></a><a href="#capabilities">Capabilities<span>03</span></a><a href="#proof">Our work<span>04</span></a><a href="#principles">Principles<span>05</span></a><a href="#pricing">Scope &amp; pricing<span>06</span></a><a href="#about">About the desk<span>07</span></a><a href="#intake">Start a conversation<span>08</span></a></nav><p class="menu-contact"><a href="mailto:daftrify.services@gmail.com">daftrify.services@gmail.com</a></p></div></dialog>
+  <dialog id="search-dialog" aria-labelledby="search-title"><div class="dialog-inner"><div class="dialog-head"><h2 id="search-title">Find what you need</h2><button class="icon-button" type="button" data-close aria-label="Close search"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></div><label for="site-search" class="sr-only">Search capabilities, demonstrations and contact information</label><input type="search" id="site-search" placeholder="Try reconciliation, evidence or pricing" autocomplete="off"><p class="search-status" id="search-status" role="status"></p><ul class="search-results" id="search-results"></ul></div></dialog>
+
+  <script>
+    (async function () {
+      'use strict';
+
+      const root = document.documentElement;
+      const $ = (selector, parent = document) => parent.querySelector(selector);
+      const $$ = (selector, parent = document) => Array.from(parent.querySelectorAll(selector));
+      const email = 'daftrify.services@gmail.com';
+      const mediaPreference = matchMedia('(prefers-reduced-motion: reduce)');
+      const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
+      const video = $('#ambient-video');
+      const announcement = $('#announcement');
+      const state = { reduced: mediaPreference.matches, ambientPaused: false, motion: null, progress: 0 };
+      const loops = new Set();
+      const motionCleanup = [];
+      const interactionCleanup = [];
+      const phasePositions = [.02, .16, .32, .46, .61, .79, .99];
+      let backgroundBlocked = false;
+      let playbackRequested = false;
+      let closingDialog = null;
+      let dialogAnimation = null;
+      let focusBeforeDialog = null;
+      let motionBuilt = false;
+      let lastPhase = -1;
+
+      function announce(message) {
+        announcement.textContent = message;
+      }
+
+      function listen(target, event, handler, options) {
+        target.addEventListener(event, handler, options);
+        interactionCleanup.push(() => target.removeEventListener(event, handler, options));
+      }
+
+      function readMedia(query, callback) {
+        if (query.addEventListener) listen(query, 'change', callback);
+        else { query.addListener(callback); interactionCleanup.push(() => query.removeListener(callback)); }
+      }
+
+      function syncAmbient() {
+        const canPlay = !state.reduced && !state.ambientPaused && !document.hidden;
+        if (canPlay && !video.error && video.paused && !playbackRequested) {
+          video.muted = true;
+          playbackRequested = true;
+          const attempt = video.play();
+          if (attempt) attempt.then(() => { backgroundBlocked = false; }).catch(() => { backgroundBlocked = true; }).finally(() => { playbackRequested = false; });
+          else playbackRequested = false;
+        } else if (!canPlay) video.pause();
+        loops.forEach(loop => {
+          if (canPlay && loop.visible) loop.control.play();
+          else loop.control.pause();
+        });
+        const control = $('#motion-toggle');
+        control.disabled = state.reduced;
+        control.setAttribute('aria-pressed', String(state.ambientPaused || state.reduced));
+        control.setAttribute('aria-label', state.reduced ? 'Motion reduced by your device preference' : state.ambientPaused ? 'Resume background and ambient motion' : 'Pause background and ambient motion');
+        $('#motion-toggle-label').textContent = state.reduced ? 'Reduced motion' : state.ambientPaused ? 'Resume motion' : 'Pause motion';
+        $('#motion-toggle-icon').setAttribute('href', state.ambientPaused || state.reduced ? '#i-play' : '#i-pause');
+      }
+
+      video.muted = true;
+      if (state.reduced) video.pause();
+      listen(video, 'loadeddata', syncAmbient);
+      listen(video, 'error', () => root.classList.add('media-failed'));
+      listen(video, 'playing', () => root.classList.remove('media-failed'));
+      listen(document, 'visibilitychange', syncAmbient);
+      listen($('#motion-toggle'), 'click', () => {
+        if (backgroundBlocked && !state.ambientPaused) {
+          backgroundBlocked = false;
+          syncAmbient();
+          return;
+        }
+        state.ambientPaused = !state.ambientPaused;
+        syncAmbient();
+        announce(state.ambientPaused ? 'Background and ambient motion paused. Scroll-controlled demonstrations remain available.' : 'Background and ambient motion resumed.');
+      });
+      syncAmbient();
+
+      /* Menu and search are real dialogs, not decorative header icons. */
+      function closeDialog(dialog, immediate = false) {
+        if (!dialog || !dialog.open) return;
+        if (dialogAnimation) { dialogAnimation.cancel(); dialogAnimation = null; }
+        const finish = () => {
+          closingDialog = null;
+          if (dialog.open) dialog.close();
+          document.body.style.overflow = '';
+          $$('[data-open]').forEach(button => button.setAttribute('aria-expanded', 'false'));
+          if (focusBeforeDialog && document.contains(focusBeforeDialog)) focusBeforeDialog.focus({ preventScroll: true });
+        };
+        if (!immediate && state.motion && !state.reduced) {
+          closingDialog = dialog;
+          dialogAnimation = state.motion.animate($('.dialog-inner', dialog), { opacity: [1, 0], transform: ['translateY(0)', 'translateY(-10px)'] }, { duration: .18, ease: 'easeOut' });
+          dialogAnimation.then(() => { if (closingDialog === dialog) finish(); });
+        } else finish();
+      }
+
+      function openDialog(id, trigger) {
+        const dialog = document.getElementById(id);
+        if (!dialog || !dialog.showModal) return;
+        $$('dialog[open]').forEach(other => closeDialog(other, true));
+        if (dialogAnimation) dialogAnimation.cancel();
+        closingDialog = null;
+        focusBeforeDialog = trigger || document.activeElement;
+        const inner = $('.dialog-inner', dialog);
+        inner.style.opacity = '1';
+        inner.style.transform = 'none';
+        dialog.showModal();
+        document.body.style.overflow = 'hidden';
+        if (trigger) trigger.setAttribute('aria-expanded', 'true');
+        if (state.motion && !state.reduced) {
+          dialogAnimation = state.motion.animate(inner, { opacity: [0, 1], transform: ['translateY(16px)', 'translateY(0)'] }, { duration: .32, ease: [.22, .61, .36, 1] });
+        }
+        if (id === 'search-dialog') {
+          $('#site-search').value = '';
+          renderSearch('');
+          $('#site-search').focus({ preventScroll: true });
+        }
+      }
+
+      $$('[data-open]').forEach(button => listen(button, 'click', () => openDialog(button.dataset.open, button)));
+      $$('dialog').forEach(dialog => {
+        listen(dialog, 'cancel', event => { event.preventDefault(); closeDialog(dialog); });
+        listen(dialog, 'click', event => {
+          if (event.target !== dialog) return;
+          const rect = dialog.getBoundingClientRect();
+          if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) closeDialog(dialog);
+        });
+        $$('[data-close]', dialog).forEach(button => listen(button, 'click', () => closeDialog(dialog)));
+      });
+
+      const searchIndex = [
+        { title: 'The working process', text: 'Follow seven files from received to verified.', href: '#casework', tags: 'process dossier extract source verify review reconcile' },
+        { title: 'Capabilities', text: 'Extract, normalize, reconcile, flag, verify and package.', href: '#capabilities', tags: 'services data document operations organization normalize' },
+        { title: 'Source-to-working comparison', text: 'Try the synthetic consistency demonstration.', href: '#proof', tab: 'consistency', tags: 'name spelling date amount mismatch proof' },
+        { title: 'Structured extraction', text: 'Normalize a sample table and download a sample CSV.', href: '#proof', tab: 'extraction', tags: 'spreadsheet csv invoice table export data qa' },
+        { title: 'Evidence completeness', text: 'Find the missing item in a synthetic package.', href: '#proof', tab: 'evidence', tags: 'missing attachment evidence annex checklist exception' },
+        { title: 'Operating principles', text: 'Source first, visible exceptions, a human final check.', href: '#principles', tags: 'trust standards policy philosophy' },
+        { title: 'Where DAFTRIFY fits', text: 'Document-heavy work across professional environments.', href: '#where', tags: 'industries legal medical procurement education immigration consulting real estate finance' },
+        { title: 'Scope and pricing', text: 'Agree the work, timing and output before starting.', href: '#pricing', tags: 'price cost quote turnaround scope payment' },
+        { title: 'About the desk', text: 'Ghulam Mustafa, Faisalabad, Pakistan.', href: '#about', tags: 'founder team about faq questions privacy handling' },
+        { title: 'Start a conversation', text: email, href: '#intake', tags: 'contact enquiry email start brief' }
+      ];
+
+      function renderSearch(query) {
+        const words = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+        const matches = searchIndex.filter(item => words.every(word => `${item.title} ${item.text} ${item.tags}`.toLowerCase().includes(word)));
+        const fragment = document.createDocumentFragment();
+        matches.forEach(item => {
+          const li = document.createElement('li');
+          const anchor = document.createElement('a');
+          anchor.href = item.href;
+          if (item.tab) anchor.dataset.proofLink = item.tab;
+          anchor.appendChild(document.createTextNode(item.title));
+          const small = document.createElement('span');
+          small.textContent = item.text;
+          anchor.appendChild(small);
+          li.appendChild(anchor);
+          fragment.appendChild(li);
+        });
+        $('#search-results').replaceChildren(fragment);
+        $('#search-status').textContent = matches.length ? `${matches.length} ${matches.length === 1 ? 'result' : 'results'}` : 'No match. Try a document type or contact the desk.';
+      }
+      listen($('#site-search'), 'input', event => renderSearch(event.target.value));
+      listen(document, 'keydown', event => {
+        const editing = event.target instanceof HTMLElement && (event.target.matches('input, textarea, select') || event.target.isContentEditable);
+        if (!editing && (event.key === '/' || ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k'))) {
+          event.preventDefault();
+          openDialog('search-dialog', $('[data-open="search-dialog"]'));
+        }
+      });
+
+      function navigateTo(hash) {
+        const target = document.getElementById(decodeURIComponent(hash.slice(1)));
+        if (!target) return;
+        $$('dialog[open]').forEach(dialog => closeDialog(dialog, true));
+        try { history.pushState(null, '', hash); } catch (_) { /* Local-file navigation still scrolls correctly. */ }
+        target.scrollIntoView({ behavior: state.reduced ? 'auto' : 'smooth', block: 'start' });
+        if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+        target.focus({ preventScroll: true });
+      }
+
+      function jumpToPhase(index) {
+        const region = $('#dossier-scroll');
+        if (!root.classList.contains('motion-ready')) { navigateTo('#casework'); return; }
+        const start = region.getBoundingClientRect().top + window.scrollY;
+        const distance = Math.max(0, region.offsetHeight - window.innerHeight);
+        window.scrollTo({ top: start + distance * phasePositions[index], behavior: state.reduced ? 'auto' : 'smooth' });
+      }
+
+      listen(document, 'click', event => {
+        if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        const anchor = event.target.closest && event.target.closest('a[href^="#"]');
+        if (!anchor) return;
+        const hash = anchor.getAttribute('href');
+        if (!hash || hash === '#') return;
+        event.preventDefault();
+        if (anchor.dataset.proofLink) selectProof(anchor.dataset.proofLink);
+        if (anchor.hasAttribute('data-stage-link')) jumpToPhase(Number(anchor.dataset.stageLink));
+        else navigateTo(hash);
+      });
+      $$('[data-phase]').forEach(button => listen(button, 'click', () => jumpToPhase(Number(button.dataset.phase))));
+
+      /* State changes remain truthful: formatting is not verification, and a
+         requested document is not treated as received. */
+      const proofTabs = $$('.work-tab');
+      const proofNames = { consistency: 'Source-to-working comparison', extraction: 'Structured extraction and QA', evidence: 'Evidence completeness register' };
+      function selectProof(name) {
+        if (!Object.prototype.hasOwnProperty.call(proofNames, name)) return;
+        proofTabs.forEach(tab => {
+          const selected = tab.dataset.proof === name;
+          tab.setAttribute('aria-selected', String(selected));
+          tab.tabIndex = selected ? 0 : -1;
+          document.getElementById(tab.getAttribute('aria-controls')).hidden = !selected;
+        });
+        $('#proof-title-current').textContent = proofNames[name];
+        const panel = document.getElementById(`proof-${name}`);
+        if (state.motion && !state.reduced) {
+          if (panel._entrance) panel._entrance.cancel();
+          panel._entrance = state.motion.animate(panel, { opacity: [0, 1], transform: ['translateY(10px)', 'translateY(0)'] }, { duration: .3, ease: 'easeOut' });
+        }
+      }
+      proofTabs.forEach((tab, index) => {
+        listen(tab, 'click', () => selectProof(tab.dataset.proof));
+        listen(tab, 'keydown', event => {
+          let next = null;
+          if (event.key === 'ArrowRight') next = (index + 1) % proofTabs.length;
+          if (event.key === 'ArrowLeft') next = (index - 1 + proofTabs.length) % proofTabs.length;
+          if (event.key === 'Home') next = 0;
+          if (event.key === 'End') next = proofTabs.length - 1;
+          if (next === null) return;
+          event.preventDefault();
+          selectProof(proofTabs[next].dataset.proof);
+          proofTabs[next].focus();
+        });
+      });
+
+      let verified = false;
+      let verificationTimers = [];
+      let verificationGeneration = 0;
+      const originalValues = ['Mohammad Ahmed', '05/09/2026', '12,050'];
+      const sourceValues = ['Muhammad Ahmed', '04/09/2026', '12,500'];
+      const workingRows = $$('#working-rows .compare-row');
+      const verifyButton = $('#verify-button');
+
+      function endVerification(next) {
+        verified = next;
+        const status = $('#verification-status');
+        status.dataset.state = next ? 'good' : 'review';
+        $('span', status).textContent = next ? 'Three working fields verified against the sample sources.' : 'Three differences require a source check.';
+        $('use', status).setAttribute('href', next ? '#i-check' : '#i-flag');
+        $('.button-text', verifyButton).textContent = next ? 'Reset comparison' : 'Verify against source';
+        verifyButton.disabled = false;
+        verifyButton.removeAttribute('aria-busy');
+      }
+
+      listen(verifyButton, 'click', () => {
+        verificationTimers.forEach(clearTimeout);
+        const generation = ++verificationGeneration;
+        const next = !verified;
+        verifyButton.disabled = true;
+        verifyButton.setAttribute('aria-busy', 'true');
+        $('.button-text', verifyButton).textContent = next ? 'Checking the sources' : 'Resetting';
+        workingRows.forEach((row, index) => {
+          const apply = () => {
+            if (generation !== verificationGeneration) return;
+            row.dataset.verified = String(next);
+            $('mark', row).textContent = (next ? sourceValues : originalValues)[index];
+            if (state.motion && !state.reduced) state.motion.animate($('strong', row), { opacity: [.3, 1], transform: ['translateY(4px)', 'translateY(0)'] }, { duration: .25 });
+          };
+          if (state.reduced) apply();
+          else verificationTimers.push(setTimeout(apply, index * 210));
+        });
+        if (state.reduced) endVerification(next);
+        else verificationTimers.push(setTimeout(() => { if (generation === verificationGeneration) endVerification(next); }, 700));
+      });
+
+      const rawRecords = [
+        ['Inv 7741', 'M. Ahmed', '4/9/2026', '12 500', 'Raw entry'],
+        ['inv-7742', 'M. Ahmed', '05.09.2026', '8,900', 'Raw entry'],
+        ['INV 7743', 'M. Ahmed', '6/9/2026', '10,4?0', 'Unclear source']
+      ];
+      const normalizedRecords = [
+        ['INV-7741', 'M. Ahmed', '2026-09-04', '12,500', 'Format normalized'],
+        ['INV-7742', 'M. Ahmed', '2026-09-05', '8,900', 'Format normalized'],
+        ['INV-7743', 'M. Ahmed', '2026-09-06', '', 'Needs source review']
+      ];
+      let normalized = false;
+      listen($('#normalize-button'), 'click', () => {
+        normalized = !normalized;
+        const data = normalized ? normalizedRecords : rawRecords;
+        const fragment = document.createDocumentFragment();
+        data.forEach((record, rowIndex) => {
+          const tr = document.createElement('tr');
+          record.forEach((value, columnIndex) => {
+            const td = document.createElement('td');
+            td.textContent = value || 'Not readable';
+            if (rowIndex === 2 && columnIndex >= 3) td.className = 'pending';
+            tr.appendChild(td);
+          });
+          fragment.appendChild(tr);
+        });
+        $('#extraction-rows').replaceChildren(fragment);
+        $('.button-text', $('#normalize-button')).textContent = normalized ? 'Restore raw entries' : 'Normalize entries';
+        $('#extraction-status').textContent = normalized ? 'Formats normalized. The unreadable amount remains open for source review.' : 'Dates are day/month/year in this demonstration.';
+        if (state.motion && !state.reduced) state.motion.animate($('#extraction-rows'), { opacity: [.4, 1] }, { duration: .35 });
+      });
+      listen($('#download-csv'), 'click', () => {
+        const data = normalized ? normalizedRecords : rawRecords;
+        const rows = [['Reference', 'Party', 'Date', 'Amount', 'Status', 'Data type'], ...data.map(row => [...row, 'SIMULATED DEMONSTRATION'])];
+        const csv = rows.map(row => row.map(value => '"' + String(value).replaceAll('"', '""') + '"').join(',')).join('\r\n');
+        const objectURL = URL.createObjectURL(new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' }));
+        const anchor = document.createElement('a');
+        anchor.href = objectURL;
+        anchor.download = 'daftrify-simulated-extraction.csv';
+        document.body.appendChild(anchor);
+        anchor.click();
+        anchor.remove();
+        setTimeout(() => URL.revokeObjectURL(objectURL), 1000);
+        announce('The synthetic extraction CSV has been prepared for download.');
+      });
+
+      let sampleAdded = false;
+      listen($('#evidence-button'), 'click', () => {
+        sampleAdded = !sampleAdded;
+        const status = $('#annex-state');
+        status.replaceChildren(document.createTextNode(sampleAdded ? 'Sample present ' : 'Missing '));
+        const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        icon.setAttribute('class', 'icon');
+        icon.setAttribute('aria-hidden', 'true');
+        const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+        use.setAttribute('href', sampleAdded ? '#i-check' : '#i-flag');
+        icon.appendChild(use); status.appendChild(icon);
+        status.classList.toggle('missing', !sampleAdded);
+        $('#evidence-status').textContent = sampleAdded ? 'All 7 listed items are present. Their contents still require review.' : '6 of 7 listed items present. Annex C is still required.';
+        $('#evidence-status').dataset.state = sampleAdded ? 'good' : 'review';
+        $('.button-text', $('#evidence-button')).textContent = sampleAdded ? 'Remove sample evidence' : 'Add sample evidence';
+        if (state.motion && !state.reduced) state.motion.animate(status, { opacity: [.2, 1] }, { duration: .3 });
+      });
+
+      $$('details').forEach(details => listen(details, 'toggle', () => {
+        if (!details.open || !state.motion || state.reduced) return;
+        const content = $('.capability-content', details) || $('p', details);
+        if (content) state.motion.animate(content, { opacity: [0, 1], transform: ['translateY(6px)', 'translateY(0)'] }, { duration: .3, ease: 'easeOut' });
+      }));
+
+      /* Enquiries stay in the browser until the visitor chooses an email app. */
+      const form = $('#inquiry-form');
+      const requiredFields = [$('#contact-name'), $('#contact-email'), $('#contact-documents')];
+      let preparedDraft = '';
+      function validateField(input) {
+        const valid = input.value.trim().length > 0 && input.validity.valid;
+        input.setAttribute('aria-invalid', String(!valid));
+        document.getElementById(input.getAttribute('aria-describedby')).hidden = valid;
+        return valid;
+      }
+      requiredFields.forEach(input => listen(input, 'input', () => {
+        if (input.getAttribute('aria-invalid') === 'true') validateField(input);
+      }));
+      listen(form, 'submit', event => {
+        event.preventDefault();
+        const invalid = requiredFields.filter(input => !validateField(input));
+        if (invalid.length) { announce(`Please check ${invalid.length} ${invalid.length === 1 ? 'field' : 'fields'}.`); invalid[0].focus(); return; }
+        const values = new FormData(form);
+        const name = String(values.get('name')).trim();
+        const address = String(values.get('email')).trim();
+        const documents = String(values.get('documents')).trim();
+        const context = String(values.get('context') || '').trim();
+        preparedDraft = ['DAFTRIFY - document workflow enquiry', '', `Name: ${name}`, `Email: ${address}`, `Document set: ${documents}`, '', 'Useful result / context:', context || 'To be discussed.'].join('\n');
+        $('#draft-preview').textContent = preparedDraft;
+        $('#send-draft').href = `mailto:${email}?subject=${encodeURIComponent('Document workflow enquiry - ' + name)}&body=${encodeURIComponent(preparedDraft)}`;
+        form.hidden = true;
+        $('#inquiry-draft').hidden = false;
+        $('#draft-title').focus({ preventScroll: true });
+        announce('Your draft is ready on this device. Nothing has been sent.');
+      });
+      listen($('#edit-draft'), 'click', () => {
+        $('#inquiry-draft').hidden = true;
+        form.hidden = false;
+        $('#contact-name').focus({ preventScroll: true });
+      });
+
+      async function copyText(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+          try { await navigator.clipboard.writeText(text); return true; } catch (_) { /* Use the local-file fallback below. */ }
+        }
+        const previous = document.activeElement;
+        const area = document.createElement('textarea');
+        area.value = text; area.readOnly = true;
+        area.style.cssText = 'position:fixed;left:-9999px;top:0;opacity:0';
+        document.body.appendChild(area); area.select();
+        let success = false;
+        try { success = document.execCommand('copy'); } catch (_) { success = false; }
+        area.remove();
+        if (previous && previous.focus) previous.focus({ preventScroll: true });
+        return success;
+      }
+      listen($('#copy-draft'), 'click', async () => {
+        const success = await copyText(preparedDraft);
+        $('#copy-status').textContent = success ? 'Enquiry copied. Paste it into your email app when ready.' : 'Copy was unavailable. Select the draft above and copy it manually.';
+      });
+
+      /* Navigation stays functional even if Motion is unavailable. */
+      const visibleSections = new Map();
+      if ('IntersectionObserver' in window) {
+        const navigationObserver = new IntersectionObserver(entries => {
+          entries.forEach(entry => visibleSections.set(entry.target.id, entry.isIntersecting));
+          const active = [...visibleSections.entries()].find(([, visible]) => visible);
+          $$('[data-nav]').forEach(link => {
+            if (active && link.dataset.nav === active[0]) link.setAttribute('aria-current', 'location');
+            else link.removeAttribute('aria-current');
+          });
+        }, { rootMargin: '-32% 0px -60% 0px', threshold: 0 });
+        $$('main > section').forEach(section => navigationObserver.observe(section));
+        interactionCleanup.push(() => navigationObserver.disconnect());
+        const headerObserver = new IntersectionObserver(entries => {
+          $('#site-header').classList.toggle('scrolled', !entries[0].isIntersecting);
+        }, { rootMargin: '-75px 0px 0px 0px' });
+        headerObserver.observe($('#hero'));
+        interactionCleanup.push(() => headerObserver.disconnect());
+      }
+
+      /* Motion's JavaScript build uses the same animation engine as its React
+         API without adding a build pipeline to this single-file deliverable. */
+      function keepScroll(control, options) {
+        const stop = state.motion.scroll(control, { ...options, trackContentSize: true });
+        motionCleanup.push(() => { stop(); if (control.cancel) control.cancel(); });
+        return control;
+      }
+
+      function addLoop(element, keyframes, options, observedElement = element) {
+        const control = state.motion.animate(element, keyframes, { duration: 8, repeat: Infinity, ease: 'easeInOut', ...options });
+        control.pause();
+        const loop = { control, visible: false };
+        loops.add(loop);
+        const stop = state.motion.inView(observedElement, () => {
+          loop.visible = true;
+          syncAmbient();
+          return () => { loop.visible = false; control.pause(); };
+        }, { margin: '80px 0px 80px 0px' });
+        motionCleanup.push(() => { stop(); control.cancel(); loops.delete(loop); });
+        return control;
+      }
+
+      function destroyMotion() {
+        motionCleanup.splice(0).reverse().forEach(cleanup => { try { cleanup(); } catch (_) {} });
+        loops.clear();
+        root.classList.remove('motion-ready');
+        motionBuilt = false;
+        $('#reading-veil').style.opacity = '.2';
+        $$('.motion-subject, #hero-content, #hero-route').forEach(element => { element.style.transform = ''; element.style.opacity = ''; });
+      }
+
+      function buildMotion() {
+        if (!state.motion || state.reduced || motionBuilt) return;
+        motionBuilt = true;
+        root.classList.add('motion-ready');
+        const { animate } = state.motion;
+
+        /* Entrance and scrolling have different owners. Scroll back up and the
+           hero, like the rest of the page, returns to its starting pose. */
+        const heroEntries = [
+          ['#site-header', -16, .6, 0],
+          ['[data-intro="badge"]', 12, .7, .1],
+          ['[data-intro="heading"]', 24, .85, .22],
+          ['[data-intro="copy"]', 18, .8, .4],
+          ['[data-intro="actions"]', 18, .8, .54]
+        ];
+        if (window.scrollY < window.innerHeight) {
+          heroEntries.forEach(([selector, y, duration, delay]) => {
+            const control = animate(selector, { opacity: [0, 1], transform: [`translateY(${y}px)`, 'translateY(0)'] }, { duration, delay, ease: 'easeOut' });
+            motionCleanup.push(() => control.cancel());
+          });
+          $$('.hero-step').forEach((step, index) => {
+            const control = animate(step, { opacity: [0, 1], transform: ['translateY(16px)', 'translateY(0)'] }, { duration: .8, delay: .7 + index * .055, ease: 'easeOut' });
+            motionCleanup.push(() => control.cancel());
+          });
+        }
+        keepScroll(animate('#hero-content', { opacity: [1, 1, 0], transform: ['translateY(0)', 'translateY(-12px)', 'translateY(-100px)'] }, { duration: 1, times: [0, .35, 1], ease: 'linear' }), { target: $('#hero'), offset: ['start start', 'end start'] });
+        keepScroll(animate('#hero-route', { opacity: [1, 1, 0], transform: ['translateY(0)', 'translateY(0)', 'translateY(-65px)'] }, { duration: 1, times: [0, .55, 1], ease: 'linear' }), { target: $('#hero'), offset: ['start start', 'end start'] });
+
+        /* Reversible entrance AND exit, not one-time while-in-view fades. */
+        $$('[data-enter]').forEach(wrapper => {
+          const subject = $('.motion-subject', wrapper);
+          if (!subject) return;
+          const axis = wrapper.dataset.axis;
+          const from = axis === 'left' ? 'translate3d(-50px,38px,0) rotate(-2deg)' : axis === 'right' ? 'translate3d(50px,38px,0) rotate(2deg)' : axis === 'depth' ? 'translate3d(0,42px,0) rotateX(7deg) scale(.96)' : 'translate3d(0,44px,0)';
+          const rest = axis === 'left' || axis === 'right' ? 'translate3d(0,0,0) rotate(0deg)' : axis === 'depth' ? 'translate3d(0,0,0) rotateX(0deg) scale(1)' : 'translate3d(0,0,0)';
+          const to = axis === 'left' ? 'translate3d(18px,-28px,0) rotate(1deg)' : axis === 'right' ? 'translate3d(-18px,-28px,0) rotate(-1deg)' : axis === 'depth' ? 'translate3d(0,-28px,0) rotateX(-4deg) scale(.985)' : 'translate3d(0,-28px,0)';
+          keepScroll(animate(subject, { opacity: [.12, 1, 1, .12], transform: [from, rest, rest, to] }, { duration: 1, ease: 'linear' }), { target: wrapper, offset: ['start end', 'start .72', 'end .18', 'end start'] });
+        });
+
+        keepScroll(animate('#ambient-frame', { transform: ['scale(1)', 'scale(1.035) translateX(-.5%)', 'scale(1.015) translateX(.3%)', 'scale(1)'] }, { duration: 1, ease: 'linear' }), {});
+        keepScroll(animate('#reading-veil', { opacity: [.04, .3, .22, .32, .12] }, { duration: 1, times: [0, .12, .45, .78, 1], ease: 'linear' }), {});
+
+        $$('[data-float]').forEach((element, index) => addLoop(element, { transform: ['translateY(-5px) rotate(-.5deg)', 'translateY(5px) rotate(.5deg)', 'translateY(-5px) rotate(-.5deg)'] }, { duration: 7.8 + (index % 4) * 1.2 }));
+        $$('[data-line-loop]').forEach((element, index) => addLoop(element, { transform: ['translateX(-110%)', 'translateX(310%)'] }, { duration: 4.8 + (index % 3) * .6, ease: 'linear' }, element.parentElement));
+        addLoop($('#dossier-idle'), { transform: ['translateY(-3px) rotateZ(-.3deg)', 'translateY(3px) rotateZ(.3deg)', 'translateY(-3px) rotateZ(-.3deg)'] }, { duration: 9 }, $('#dossier-stage'));
+        $$('.paper-float').forEach((element, index) => addLoop(element, { transform: ['translateY(-1.5px)', 'translateY(1.5px)', 'translateY(-1.5px)'] }, { duration: 5.4 + index * .45 }, $('#dossier-stage')));
+
+        buildDossier();
+
+        $$('[data-tactile]').forEach(element => {
+          let control;
+          function move(transform, duration) {
+            if (control) control.stop();
+            control = animate(element, { transform }, { duration, ease: 'easeOut' });
+          }
+          const enter = event => { if (event.pointerType !== 'touch' && finePointer.matches) move('translateY(-2px) scale(1.03)', .24); };
+          const leave = () => move('translateY(0) scale(1)', .3);
+          const down = () => move('translateY(1px) scale(.97)', .12);
+          const up = () => move('translateY(0) scale(1)', .2);
+          element.addEventListener('pointerenter', enter);
+          element.addEventListener('pointerleave', leave);
+          element.addEventListener('pointerdown', down);
+          element.addEventListener('pointerup', up);
+          motionCleanup.push(() => {
+            element.removeEventListener('pointerenter', enter); element.removeEventListener('pointerleave', leave);
+            element.removeEventListener('pointerdown', down); element.removeEventListener('pointerup', up);
+            if (control) control.cancel(); element.style.transform = '';
+          });
+        });
+        syncAmbient();
+      }
+
+      function buildDossier() {
+        const { scroll, animate } = state.motion;
+        const stage = $('#dossier-stage');
+        const cards = $$('[data-paper]');
+        const cover = $('#folder-cover');
+        const back = $('#folder-back');
+        const annotations = [$('#annotation-name'), $('#annotation-date'), $('#annotation-amount')];
+        const slip = $('#verification-slip');
+        const stamp = $('#package-stamp');
+        const connectors = $('#connections');
+        const connectionPaths = $$('#connections path');
+        const key = $('#reconcile-key');
+        const caption = $('#stage-caption');
+        const folderStatus = $('#folder-status');
+        const fixes = $$('[data-paper-fix]');
+        const captions = [
+          'Received. Seven synthetic records are logged as one document set.',
+          'Opened. Original sources and working copies become a traceable set.',
+          'Separated. Related information can now be compared across the seven records.',
+          'Exceptions. A spelling difference, a conflicting date and transposed digits need review.',
+          'Reconciled. Each working entry is connected to its supporting source.',
+          'Human check. Corrections are accepted only after comparison with the original records.',
+          'Packaged. Seven files, three resolved differences and a visible comparison trail.'
+        ];
+        const boundaries = [0, .10, .23, .40, .54, .69, .87];
+        const clamp = value => Math.max(0, Math.min(1, value));
+        const ease = value => { const x = clamp(value); return x * x * (3 - 2 * x); };
+        const between = (p, a, b) => ease((p - a) / (b - a));
+        const mix = (a, b, t) => a + (b - a) * t;
+        function blend(a, b, t) { return a.map((value, index) => mix(value, b[index], t)); }
+        let geometry;
+        let lastCorrection = -1;
+        let lastRenderedProgress = -1;
+        lastPhase = -1;
+
+        function measure() {
+          const width = stage.clientWidth;
+          const height = stage.clientHeight;
+          if (!width || !height) return;
+          const mobile = window.innerWidth < 768;
+          const paperHeight = cards[0].offsetHeight;
+          const spreadScale = mobile ? Math.min(.88, height * .42 / paperHeight) : Math.min(1, height * .47 / paperHeight);
+          const positions = mobile ? [
+            [-.25, -.29, 30, -6, 5], [.25, -.29, 10, 5, -5], [-.25, 0, -20, 4, 3],
+            [.25, 0, 65, -3, -4], [-.25, .29, -10, -5, 4], [.25, .29, 20, 4, -5], [0, .02, -130, 0, 0]
+          ] : [
+            [-.33, -.25, 50, -8, 12], [0, -.28, 10, 4, 0], [.33, -.23, -20, 7, -12],
+            [-.33, .25, 60, 4, 10], [0, .28, 20, -4, 0], [.33, .23, -20, -6, -10], [.015, -.02, -150, 1, 0]
+          ];
+          geometry = {
+            width, height,
+            initial: cards.map((_, i) => [i * 1.2, -i * 1.3, 12 + i * 1.1, 0, 0, .96]),
+            fan: cards.map((_, i) => [(i - 3) * width * .021, (i - 3) * height * .016, 12 + i * 4, (i - 3) * 3, 0, 1]),
+            spread: positions.map(point => [point[0] * width, point[1] * height, point[2], point[3], point[4], spreadScale]),
+            packed: cards.map((_, i) => [i * 3.2, -i * 3.2, 12 + i * 2, i * .25, 0, .98])
+          };
+          render(state.progress, true);
+        }
+
+        // Pure progress-to-pose mapping: every value rewinds with the scroll.
+        function render(p, force = false) {
+          if (!geometry) return;
+          if (!force && Math.abs(p - lastRenderedProgress) < .00001) return;
+          lastRenderedProgress = p;
+          state.progress = p;
+          const opening = between(p, .065, .21);
+          const spreading = between(p, .22, .38);
+          const packing = between(p, .84, .945);
+          const reviewing = between(p, .665, .72) * (1 - between(p, .835, .87));
+          const visible = between(p, .065, .135);
+          cards.forEach((element, i) => {
+            let pose = blend(geometry.initial[i], geometry.fan[i], opening);
+            pose = blend(pose, geometry.spread[i], spreading);
+            pose = blend(pose, geometry.packed[i], packing);
+            element.style.transform = `translate3d(${pose[0].toFixed(2)}px,${pose[1].toFixed(2)}px,${pose[2].toFixed(2)}px) rotateZ(${pose[3].toFixed(2)}deg) rotateY(${pose[4].toFixed(2)}deg) scale(${pose[5].toFixed(3)})`;
+            element.style.opacity = (visible * (1 - reviewing * .78)).toFixed(3);
+          });
+          const reopen = opening * (1 - between(p, .875, .965));
+          cover.style.transform = `translate3d(${-reopen * geometry.width * .08}px,0,110px) rotateY(${-112 * reopen}deg)`;
+          cover.style.opacity = clamp(1 - between(p, .14, .225) + between(p, .915, .97)).toFixed(3);
+          back.style.transform = `translate3d(0,0,-30px) rotateZ(${mix(-2, 0, opening)}deg)`;
+          back.style.opacity = clamp(1 - between(p, .24, .35) + between(p, .85, .94)).toFixed(3);
+
+          annotations.forEach((element, index) => {
+            const appearance = between(p, .40 + index * .037, .435 + index * .037);
+            const opacity = appearance * (1 - between(p, .655, .70));
+            element.style.opacity = opacity.toFixed(3);
+            element.style.transform = `translateY(${(1 - appearance) * 12}px)`;
+          });
+          const lines = between(p, .54, .64) * (1 - between(p, .69, .75));
+          connectors.style.opacity = lines.toFixed(3);
+          key.style.opacity = lines.toFixed(3);
+          connectionPaths.forEach(path => { path.style.strokeDashoffset = String((1 - between(p, .54, .65)) * Number(path.dataset.length || 700)); });
+          const revealCheck = between(p, .695, .75);
+          slip.style.opacity = (revealCheck * (1 - between(p, .835, .875))).toFixed(3);
+          slip.style.transform = `translate(-50%,-50%) translateY(${(1 - revealCheck) * 20}px) scale(${.96 + revealCheck * .04})`;
+
+          const correction = p >= .81 ? 3 : p >= .795 ? 2 : p >= .778 ? 1 : 0;
+          if (correction !== lastCorrection) {
+            lastCorrection = correction;
+            fixes.forEach((element, index) => {
+              element.textContent = (correction > index ? sourceValues : originalValues)[index];
+              element.classList.toggle('mini-exception', correction <= index);
+            });
+            $('#slip-working').textContent = correction >= 1 ? sourceValues[0] : originalValues[0];
+            $('#slip-status').textContent = correction === 3 ? 'Verified against source' : 'Review required';
+            $('#slip-icon').setAttribute('href', correction === 3 ? '#i-check' : '#i-flag');
+          }
+          const stamping = between(p, .945, .99);
+          stamp.style.opacity = stamping.toFixed(3);
+          stamp.style.transform = `translateY(${(1 - stamping) * -35}px) rotate(-12deg) scale(${1.28 - stamping * .28})`;
+          const coverState = p > .94 ? 'VERIFIED' : 'RECEIVED';
+          if (folderStatus.textContent !== coverState) folderStatus.textContent = coverState;
+
+          let phase = 0;
+          boundaries.forEach((boundary, index) => { if (p >= boundary) phase = index; });
+          if (phase !== lastPhase) {
+            lastPhase = phase;
+            caption.textContent = captions[phase];
+            $$('[data-phase]').forEach(button => {
+              if (Number(button.dataset.phase) === phase) button.setAttribute('aria-current', 'step');
+              else button.removeAttribute('aria-current');
+            });
+          }
+        }
+
+        connectionPaths.forEach(path => {
+          const length = path.getTotalLength();
+          path.dataset.length = String(length);
+          path.style.strokeDasharray = String(length);
+          path.style.strokeDashoffset = String(length);
+        });
+        measure();
+        const stop = scroll(progress => render(progress), { target: $('#dossier-scroll'), offset: ['start start', 'end end'], trackContentSize: true });
+        motionCleanup.push(stop);
+        if ('ResizeObserver' in window) {
+          const observer = new ResizeObserver(measure);
+          observer.observe(stage);
+          motionCleanup.push(() => observer.disconnect());
+        }
+
+        // Pointer tilt uses a separate parent from all scroll-owned transforms.
+        const pointerLayer = $('#dossier-pointer');
+        let pointerAnimation;
+        const pointerMove = event => {
+          if (!finePointer.matches || state.ambientPaused || event.pointerType === 'touch') return;
+          const bounds = stage.getBoundingClientRect();
+          const x = (event.clientX - bounds.left) / bounds.width - .5;
+          const y = (event.clientY - bounds.top) / bounds.height - .5;
+          if (pointerAnimation) pointerAnimation.stop();
+          pointerAnimation = animate(pointerLayer, { transform: `rotateY(${x * 4}deg) rotateX(${-y * 3}deg)` }, { duration: .45, ease: 'easeOut' });
+        };
+        const pointerLeave = () => {
+          if (pointerAnimation) pointerAnimation.stop();
+          pointerAnimation = animate(pointerLayer, { transform: 'rotateY(0deg) rotateX(0deg)' }, { duration: .6, ease: 'easeOut' });
+        };
+        stage.addEventListener('pointermove', pointerMove, { passive: true });
+        stage.addEventListener('pointerleave', pointerLeave);
+        motionCleanup.push(() => {
+          stage.removeEventListener('pointermove', pointerMove);
+          stage.removeEventListener('pointerleave', pointerLeave);
+          if (pointerAnimation) pointerAnimation.cancel();
+          pointerLayer.style.transform = '';
+        });
+      }
+
+      readMedia(mediaPreference, event => {
+        const dossierBounds = $('#casework').getBoundingClientRect();
+        const viewingDossier = dossierBounds.top < 100 && dossierBounds.bottom > window.innerHeight / 2;
+        state.reduced = event.matches;
+        verificationTimers.forEach(clearTimeout);
+        verificationGeneration++;
+        workingRows.forEach((row, index) => {
+          row.dataset.verified = String(verified);
+          $('mark', row).textContent = (verified ? sourceValues : originalValues)[index];
+        });
+        endVerification(verified);
+        destroyMotion();
+        if (!state.reduced) buildMotion();
+        syncAmbient();
+        if (viewingDossier) $('#casework').scrollIntoView({ behavior: 'auto', block: 'start' });
+      });
+
+      try {
+        state.motion = await import('https://cdn.jsdelivr.net/npm/motion@12.38.0/+esm');
+        buildMotion();
+      } catch (error) {
+        destroyMotion();
+        root.classList.add('motion-unavailable');
+        // Native navigation, examples, search and enquiry drafting still work.
+      }
+
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => window.dispatchEvent(new Event('resize')));
+      }
+      listen(window, 'pagehide', event => {
+        video.pause();
+        loops.forEach(loop => loop.control.pause());
+        if (!event.persisted) {
+          destroyMotion();
+          verificationTimers.forEach(clearTimeout);
+          interactionCleanup.splice(0).reverse().forEach(cleanup => cleanup());
+        }
+      });
+      listen(window, 'pageshow', () => syncAmbient());
+    })();
+  </script>
+</body>
+</html>
