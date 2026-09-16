@@ -59,7 +59,6 @@ jobs:
               s, n = re.subn(pattern, repl, s, count=1)
               if n != 1:
                   print('MISS', pattern)
-          # Add a compact type-system guard immediately before the first media query.
           marker = '@media(max-width:850px)'
           guard = "/* Step 2: typography hierarchy guardrails */\n.mono{white-space:normal}.copy{overflow-wrap:break-word}.button{letter-spacing:-.01em}.hero-left h1 em,.chapter h2 em,.manifesto em{font-style:italic}.tool h3,.fit-card h3,.method-row h3{line-height:1.08}\n"
           if guard not in s:
@@ -76,3 +75,5 @@ jobs:
           git diff --cached --quiet && exit 0
           git commit -m "Step 2: refine typography hierarchy"
           git push
+          # trigger intentionally only once; bot-authored commit is ignored by job condition
+# Step 2 typography hierarchy pass
