@@ -15,6 +15,74 @@
 @media(max-width:850px){nav{display:none}.hero{height:260vh}.hero-left{width:88vw}.hero-left h1{font-size:clamp(48px,12vw,82px);line-height:.94}.timeline{width:68vw;right:5vw}.hero-meta{left:5vw}.chapter-grid,.tool-head{grid-template-columns:1fr;display:grid;gap:40px}.friction{grid-template-columns:1fr 1fr}.demo-body,.tools,.fit-grid{grid-template-columns:1fr}.doc+.doc{border-left:0;border-top:1px solid #cbc6b8}.tool{min-height:250px}.tool svg{margin-bottom:40px}}
 @media(max-width:560px){:root{--g:18px}.hero{height:235vh}.hero-pin{min-height:640px}.hero-actions{flex-wrap:wrap}.persistent-note,.scene-label{display:none}.timeline{bottom:5%;width:90vw;right:5vw}.phases{gap:5px}.phase{font-size:7px;letter-spacing:.02em}.hero-meta{bottom:13%;font-size:8px}.friction{grid-template-columns:1fr}.friction div{border-right:0;border-bottom:1px solid #383a34}.method-row{grid-template-columns:40px 1fr}.method-row .state{grid-column:2;text-align:left}.demo-top{display:block}.demo-top .mono{margin-top:8px}.doc{padding:28px}.foot{flex-direction:column}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero{height:100svh}.hero-pin{position:relative}.world{display:none}.hero .hero-left{opacity:1!important;transform:none!important}.timeline{display:none}}
+
+/* Step 2 — DAFTRIFY Typography System v2 */
+:root{
+  --type-display:clamp(64px,7.2vw,112px);
+  --type-h1:clamp(48px,5.4vw,78px);
+  --type-h2:clamp(38px,4.4vw,60px);
+  --type-h3:clamp(20px,1.65vw,24px);
+  --type-body-lg:18px;
+  --type-body:16px;
+  --type-small:13px;
+  --type-label:12px;
+  --type-mono:10px;
+}
+body{font-size:var(--type-body);line-height:1.6}
+h1,h2,h3{ text-wrap:balance }
+p{ text-wrap:pretty }
+h1{font-size:var(--type-display);line-height:.9;letter-spacing:-.045em}
+h2{font-size:var(--type-h2);line-height:1;letter-spacing:-.04em}
+h3{font-size:var(--type-h3);line-height:1.12;letter-spacing:-.015em}
+.copy{max-width:62ch;font-size:var(--type-body);line-height:1.68}
+.mono{font-size:var(--type-mono);line-height:1.5;letter-spacing:.14em}
+nav a{font-size:var(--type-mono);line-height:1.4;letter-spacing:.11em}
+.brand{font-size:14px;line-height:1.2}
+.button{font-size:var(--type-label);line-height:1.25;font-weight:600}
+.textlink{font-size:var(--type-mono);line-height:1.4}
+.hero-left{width:min(650px,60vw)}
+.hero-left .mono{margin-bottom:20px}
+.hero-left .copy{margin-top:26px;max-width:58ch}
+.hero-actions{margin-top:30px}
+.index{font-size:var(--type-mono);line-height:1.5;margin-bottom:18px}
+.manifesto{font-size:clamp(32px,4vw,56px);line-height:1.06;letter-spacing:-.035em}
+.friction b{font-size:var(--type-label);line-height:1.35}
+.friction p{font-size:var(--type-small);line-height:1.62}
+.method-row h3{font-size:var(--type-h3);line-height:1.12}
+.method-row p{font-size:var(--type-small);line-height:1.62}
+.method-row .num,.method-row .state{font-size:var(--type-mono);line-height:1.5}
+.doc .label{font-size:var(--type-mono);line-height:1.5}
+.field b{font-size:var(--type-label);line-height:1.35}
+.field span{font-size:var(--type-mono);line-height:1.5}
+.flag{font-size:var(--type-small);line-height:1.6}
+.check{font-size:var(--type-small);line-height:1.5}
+.tool h3{font-size:clamp(26px,2vw,30px);line-height:1.06}
+.tool p{font-size:var(--type-small);line-height:1.62}
+.tool small,.tool .flow{font-size:var(--type-mono);line-height:1.5}
+.fit-card h3{font-size:clamp(26px,2vw,30px);line-height:1.06}
+.fit-card p{font-size:var(--type-small);line-height:1.62}
+.form label{font-size:var(--type-mono);line-height:1.5}
+.form input,.form textarea{font-size:var(--type-body);line-height:1.5}
+.demo-foot,.foot{font-size:var(--type-mono);line-height:1.5}
+.phase{font-size:var(--type-mono);line-height:1.4}
+.scene-label,.persistent-note{font-size:var(--type-mono);line-height:1.5}
+@media(max-width:850px){
+  :root{--type-display:clamp(52px,12vw,78px);--type-h2:clamp(36px,8vw,52px)}
+  .hero-left{width:90vw}
+  .hero-left h1{font-size:var(--type-display);line-height:.94}
+  .hero-left .copy{max-width:38ch}
+  .copy{font-size:16px;line-height:1.68}
+  .manifesto{font-size:clamp(30px,7vw,46px)}
+}
+@media(max-width:560px){
+  :root{--type-display:clamp(48px,13vw,64px);--type-h2:clamp(34px,9vw,44px)}
+  .hero-left{width:100%}
+  .hero-left .copy{max-width:34ch}
+  .friction p,.method-row p,.tool p,.fit-card p{font-size:13px}
+  .phase{font-size:9px}
+}
+@media(prefers-reduced-motion:reduce){h1,h2,h3,p{ text-wrap:pretty }}
+
 </style>
 </head>
 <body>
