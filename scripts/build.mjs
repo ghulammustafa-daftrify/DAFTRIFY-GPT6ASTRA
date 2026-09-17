@@ -18,11 +18,9 @@ for (const [index, code] of scripts.entries()) {
 }
 if (!/<html\b/i.test(html) || !/<body\b/i.test(html)) throw new Error('index.html must contain html and body elements');
 
-const legacyHeroPattern = /<script(?:\s[^>]*)?>(?=[\s\S]*requestAnimationFrame\(draw\))(?=[\s\S]*requestAnimationFrame\(update\))[\s\S]*?<\/script>/i;
-const cleanHtml = html.replace(legacyHeroPattern, '<script>/* legacy hero animation removed from production build */</script>');
 const heroCss = '<link rel="stylesheet" href="/assets/daftrify-webgl-hero-v2.css">';
 const heroScript = '<script type="module" src="/assets/daftrify-webgl-hero-v2.js"></script>';
-const builtHtml = cleanHtml.replace('</head>', `${heroCss}\n</head>`).replace('</body>', `${heroScript}\n</body>`);
+const builtHtml = html.replace('</head>', `${heroCss}\n</head>`).replace('</body>', `${heroScript}\n</body>`);
 
 if (!checkOnly) {
   fs.rmSync(dist, { recursive: true, force: true });
@@ -33,4 +31,4 @@ if (!checkOnly) {
   }
 }
 
-console.log(checkOnly ? 'DAFTRIFY check passed.' : 'DAFTRIFY static build complete: cinematic dossier v2');
+console.log(checkOnly ? 'DAFTRIFY check passed.' : 'DAFTRIFY static build complete: full-site experience');
