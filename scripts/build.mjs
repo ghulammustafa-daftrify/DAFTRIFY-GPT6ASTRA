@@ -18,15 +18,17 @@ for (const [index, code] of scripts.entries()) {
 }
 if (!/<html\b/i.test(html) || !/<body\b/i.test(html)) throw new Error('index.html must contain html and body elements');
 
+const cleanHtml = html.replace(/<script(?:\s[^>]*)?>[\s\S]*?<\/script>/gi, '');
 const heroCss = '<link rel="stylesheet" href="/assets/daftrify-webgl-hero-v2.css">';
+const siteScript = '<script src="/assets/daftrify-site.js"></script>';
 const heroScript = '<script type="module" src="/assets/daftrify-webgl-hero-v2.js"></script>';
-const builtHtml = html.replace('</head>', `${heroCss}\n</head>`).replace('</body>', `${heroScript}\n</body>`);
+const builtHtml = cleanHtml.replace('</head>', `${heroCss}\n</head>`).replace('</body>', `${siteScript}\n${heroScript}\n</body>`);
 
 if (!checkOnly) {
   fs.rmSync(dist, { recursive: true, force: true });
   fs.mkdirSync(path.join(dist, 'assets'), { recursive: true });
   fs.writeFileSync(path.join(dist, 'index.html'), builtHtml);
-  for (const file of ['daftrify-webgl-hero-v2.css', 'daftrify-webgl-hero-v2.js']) {
+  for (const file of ['daftrify-site.js', 'daftrify-webgl-hero-v2.css', 'daftrify-webgl-hero-v2.js']) {
     fs.copyFileSync(path.join(assets, file), path.join(dist, 'assets', file));
   }
 }
