@@ -5,6 +5,7 @@ import vm from 'node:vm';
 const root = process.cwd();
 const source = path.join(root, 'index.html');
 const dist = path.join(root, 'dist');
+const assets = path.join(root, 'assets');
 const checkOnly = process.argv.includes('--check');
 
 if (!fs.existsSync(source)) {
@@ -28,10 +29,20 @@ if (!/<html\b/i.test(html) || !/<body\b/i.test(html)) {
   throw new Error('index.html must contain html and body elements');
 }
 
+const heroCss = '<link rel="stylesheet" href="/assets/daftrify-webgl-hero.css">';
+const heroScript = '<script type="module" src="/assets/daftrify-webgl-hero.js"></script>';
+const builtHtml = html
+  .replace('</head>', `${heroCss}\n</head>`)
+  .replace('</body>', `${heroScript}\n</body>`);
+
 if (!checkOnly) {
   fs.rmSync(dist, { recursive: true, force: true });
   fs.mkdirSync(dist, { recursive: true });
-  fs.copyFileSync(source, path.join(dist, 'index.html'));
+  fs.mkdirSync(path.join(dist, 'assets'), { recursive: true });
+  fs.writeFileSync(path.join(dist, 'index.html'), builtHtml);
+  for (const file of ['daftrify-webgl-hero.css', 'daftrify-webgl-hero.js']) {
+    fs.copyFileSync(path.join(assets, file), path.join(dist, 'assets', file));
+  }
 }
 
-console.log(checkOnly ? 'DAFTRIFY check passed.' : 'DAFTRIFY static build complete: dist/index.html');
+console.log(checkOnly ? 'DAFTRIFY check passed.' : 'DAFTRIFY static build complete: dist/index.html + WebGL hero assets');
