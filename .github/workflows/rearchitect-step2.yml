@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - _rearchitect_step2.trigger
+permissions:
+  contents: write
 jobs:
   rearchitect:
     runs-on: ubuntu-latest
