@@ -6,7 +6,7 @@ permissions:
   contents: write
 jobs:
   finalize:
-    if: !contains(github.event.head_commit.message, 'Step 2 final cleanup')
+    if: ${{ !contains(github.event.head_commit.message, 'Step 2 final cleanup') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,26 +17,14 @@ jobs:
           import re
           p = Path('index.html')
           s = p.read_text(encoding='utf-8')
-
-          # Remove the temporary Step 2 override/guardrail layers so we can leave one clean final layer.
           s = re.sub(r'\n/\* Step 2: typography hierarchy guardrails \*/.*?(?=\n/\* Step 2 — DAFTRIFY Typography System v2 \*/)', '', s, flags=re.S)
           s = re.sub(r'\n/\* Step 2 — DAFTRIFY Typography System v2 \*/.*?(?=\n</style>)', '', s, flags=re.S)
-
-          # Final values are kept in one explicit system block.
           final_css = r'''
 /* DAFTRIFY — final typography system v2 */
-:root{
-  --type-display:clamp(64px,7.2vw,112px);
-  --type-h2:clamp(38px,4.4vw,60px);
-  --type-h3:clamp(20px,1.65vw,24px);
-  --type-body:16px;
-  --type-small:13px;
-  --type-label:12px;
-  --type-mono:10px;
-}
+:root{--type-display:clamp(64px,7.2vw,112px);--type-h2:clamp(38px,4.4vw,60px);--type-h3:clamp(20px,1.65vw,24px);--type-body:16px;--type-small:13px;--type-label:12px;--type-mono:10px}
 body{font-size:var(--type-body);line-height:1.6}
-h1,h2,h3{ text-wrap:balance }
-p{ text-wrap:pretty }
+h1,h2,h3{text-wrap:balance}
+p{text-wrap:pretty}
 h1{font-size:var(--type-display);line-height:.9;letter-spacing:-.045em}
 h2{font-size:var(--type-h2);line-height:1;letter-spacing:-.04em}
 h3{font-size:var(--type-h3);line-height:1.12;letter-spacing:-.015em}
@@ -68,34 +56,18 @@ nav a{font-size:var(--type-mono);line-height:1.4;letter-spacing:.11em}
 .form label{font-size:var(--type-mono);line-height:1.5}
 .form input,.form textarea{font-size:var(--type-body);line-height:1.5}
 .hero-left h1 em,.chapter h2 em,.manifesto em{font-style:italic}
-@media(max-width:850px){
-  :root{--type-display:clamp(52px,12vw,78px);--type-h2:clamp(36px,8vw,52px)}
-  .hero-left{width:90vw}
-  .hero-left h1{font-size:var(--type-display);line-height:.94}
-  .hero-left .copy{max-width:38ch}
-  .copy{font-size:16px;line-height:1.68}
-  .manifesto{font-size:clamp(30px,7vw,46px)}
-}
-@media(max-width:560px){
-  :root{--type-display:clamp(48px,13vw,64px);--type-h2:clamp(34px,9vw,44px)}
-  .hero-left{width:100%}
-  .hero-left .copy{max-width:34ch}
-  .friction p,.method-row p,.tool p,.fit-card p{font-size:13px}
-  .phase{font-size:9px}
-}
-@media(prefers-reduced-motion:reduce){h1,h2,h3,p{ text-wrap:pretty }}
+@media(max-width:850px){:root{--type-display:clamp(52px,12vw,78px);--type-h2:clamp(36px,8vw,52px)}.hero-left{width:90vw}.hero-left h1{font-size:var(--type-display);line-height:.94}.hero-left .copy{max-width:38ch}.copy{font-size:16px;line-height:1.68}.manifesto{font-size:clamp(30px,7vw,46px)}}
+@media(max-width:560px){:root{--type-display:clamp(48px,13vw,64px);--type-h2:clamp(34px,9vw,44px)}.hero-left{width:100%}.hero-left .copy{max-width:34ch}.friction p,.method-row p,.tool p,.fit-card p{font-size:13px}.phase{font-size:9px}}
+@media(prefers-reduced-motion:reduce){h1,h2,h3,p{text-wrap:pretty}}
 '''
           s = s.replace('</style>', final_css + '\n</style>', 1)
-
-          # Static integrity checks.
           assert s.count('DAFTRIFY — final typography system v2') == 1
           assert s.count('Step 2 — DAFTRIFY Typography System v2') == 0
           assert s.count('Step 2: typography hierarchy guardrails') == 0
-          assert '</style>' in s and '</head>' in s and '</body>' in s and '</html>' in s
           assert s.count('<style>') == 1 and s.count('</style>') == 1
+          assert '</head>' in s and '</body>' in s and '</html>' in s
           p.write_text(s, encoding='utf-8')
           PY
-
           git diff --check
           python3 - <<'PY'
           from pathlib import Path
@@ -105,7 +77,6 @@ nav a{font-size:var(--type-mono);line-height:1.4;letter-spacing:.11em}
           print('final type system:', s.count('DAFTRIFY — final typography system v2'))
           print('old Step 2 layers:', s.count('Step 2 — DAFTRIFY Typography System v2') + s.count('Step 2: typography hierarchy guardrails'))
           PY
-
       - name: Commit final cleanup
         run: |
           git config user.name "github-actions[bot]"
