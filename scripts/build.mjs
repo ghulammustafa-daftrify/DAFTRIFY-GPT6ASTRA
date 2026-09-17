@@ -9,6 +9,7 @@ const assets = path.join(root, 'assets');
 const checkOnly = process.argv.includes('--check');
 
 if (!fs.existsSync(source)) throw new Error('index.html is missing');
+if (!fs.existsSync(path.join(assets, 'daftrify-site.js'))) throw new Error('assets/daftrify-site.js is missing');
 
 const html = fs.readFileSync(source, 'utf8');
 const scripts = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map(m => m[1].trim()).filter(Boolean);
@@ -19,18 +20,14 @@ for (const [index, code] of scripts.entries()) {
 if (!/<html\b/i.test(html) || !/<body\b/i.test(html)) throw new Error('index.html must contain html and body elements');
 
 const cleanHtml = html.replace(/<script(?:\s[^>]*)?>[\s\S]*?<\/script>/gi, '');
-const heroCss = '<link rel="stylesheet" href="/assets/daftrify-webgl-hero-v2.css">';
 const siteScript = '<script src="/assets/daftrify-site.js"></script>';
-const heroScript = '<script type="module" src="/assets/daftrify-webgl-hero-v2.js"></script>';
-const builtHtml = cleanHtml.replace('</head>', `${heroCss}\n</head>`).replace('</body>', `${siteScript}\n${heroScript}\n</body>`);
+const builtHtml = cleanHtml.replace('</body>', `${siteScript}\n</body>`);
 
 if (!checkOnly) {
   fs.rmSync(dist, { recursive: true, force: true });
   fs.mkdirSync(path.join(dist, 'assets'), { recursive: true });
   fs.writeFileSync(path.join(dist, 'index.html'), builtHtml);
-  for (const file of ['daftrify-site.js', 'daftrify-webgl-hero-v2.css', 'daftrify-webgl-hero-v2.js']) {
-    fs.copyFileSync(path.join(assets, file), path.join(dist, 'assets', file));
-  }
+  fs.copyFileSync(path.join(assets, 'daftrify-site.js'), path.join(dist, 'assets', 'daftrify-site.js'));
 }
 
-console.log(checkOnly ? 'DAFTRIFY check passed.' : 'DAFTRIFY static build complete: full-site experience');
+console.log(checkOnly ? 'DAFTRIFY check passed.' : 'DAFTRIFY static build complete: full-site editorial rebuild');
